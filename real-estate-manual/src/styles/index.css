@@ -1,0 +1,18 @@
+.bg-fff { background: #ffffff;}
+.bg-f8 { background-color: #f8f8f8;}
+.c-999 {color: #999999;}
+.c-666 {color: #666666;}
+.c-000 {color: #000000;}
+.fs-12px {font-size: 12px;}
+.fs-13px {font-size: 13px;}
+.fixed { position: fixed;}
+.inline-block { display: inline-block;}
+.left-align { text-align: left; }
+.center {text-align: center;}
+.right-align { text-align: right; }
+.nowrap { white-space: nowrap; }
+.break-word { word-wrap: break-word; }
+.flex { display: flex; }
+.justify-between { justify-content: space-between;}
+.justify-around { justify-content: space-around;}
+.items-center {align-items: center;}
