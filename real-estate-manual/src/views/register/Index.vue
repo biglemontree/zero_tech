@@ -1,5 +1,5 @@
 <template lang="html">
-    <div>
+    <div v-if="isSuccess">
         <div class="weui-cells__title">请选择您不动产登记受理地点</div>
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
@@ -77,6 +77,14 @@
             <a href="javascript:;" class="weui-btn weui-btn_primary">下一步</a>
         </div>
     </div>
+    <Feedback v-else>
+        <div slot="tip-info">
+            <i class="weui-icon-success weui-icon_msg"></i>
+            <h3 class="icon-box__title">操作成功</h3>
+            <p class="icon-box__desc c-666">您办理的不动产业务登记预约申请成功</p>
+            <p class="icon-box__desc c-666">请您时刻注意微信公众号的提醒</p>
+        </div>
+    </Feedback>
         
 </template>
 
@@ -84,6 +92,7 @@
 import NodeRSA from "node-rsa";
 import request from "../../utils/request";
 import api from "../../constants/api";
+import Feedback from "../common/Feedback";
 const publicKey =
   "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQChaN2wLApfaKBORUjanb6ocZbG9Y7ckp8o2o0yJavymbFmzzrm3ONa7cSVJOs5Q6SUl+KPnJSlU89cmd80Il/7ZiBgYNHieTySmPf/6U1qKELaBlDUsLGY93WSFHoqXEwYvXI6xarQNuS8QZUPk9DKkC/C669U/X6DR3K39h7H3wIDAQAB-----END PUBLIC KEY-----";
 const key = new NodeRSA();
@@ -92,6 +101,11 @@ key.importKey(publicKey, "pkcs8-public");
 const x = key.encrypt(18122059359, "base64");
 export default {
   name: "home",
+  data() {
+    return {
+      isSuccess: false
+    };
+  },
   mounted() {
     // request({
     //   url: api.SendCode,
@@ -99,6 +113,9 @@ export default {
     //     phone: x
     //   }
     // });
+  },
+  components: {
+    Feedback
   }
 };
 </script>
