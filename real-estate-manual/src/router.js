@@ -39,6 +39,11 @@ export default new Router({
       // this generates a separate chunk (list.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "list" */ './views/apply/List.vue')
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: () => import(/* webpackChunkName: "search" */ './views/process/Search.vue')
     }
   ]
 })

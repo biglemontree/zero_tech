@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const service = axios.create({
     baseURL: 'http://2121k4a180.iask.in:11898/jlbdc_gzh/',
+    // baseURL: '',
     method: 'post',
     timeout: 15000
 })
@@ -47,6 +48,9 @@ service.interceptors.response.use(
  */
 function request(params, ignoreError) {
     // appStore.setLoading(true)
+    weui.toast('加载中', {
+        duration: 500
+    })
     return service(params).then(res => {
         // appStore.updateTimer().setLoading(false)
         return res

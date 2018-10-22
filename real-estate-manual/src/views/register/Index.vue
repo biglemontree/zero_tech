@@ -96,23 +96,25 @@ import Feedback from "../common/Feedback";
 const publicKey =
   "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQChaN2wLApfaKBORUjanb6ocZbG9Y7ckp8o2o0yJavymbFmzzrm3ONa7cSVJOs5Q6SUl+KPnJSlU89cmd80Il/7ZiBgYNHieTySmPf/6U1qKELaBlDUsLGY93WSFHoqXEwYvXI6xarQNuS8QZUPk9DKkC/C669U/X6DR3K39h7H3wIDAQAB-----END PUBLIC KEY-----";
 const key = new NodeRSA();
-// key.setOptions({encryptionScheme: 'pkcs1'})
-key.importKey(publicKey, "pkcs8-public");
+key.setOptions({encryptionScheme: 'pkcs1'})
+key.importKey(publicKey);
 const x = key.encrypt(18122059359, "base64");
+console.log('x', x)
+
 export default {
   name: "home",
   data() {
     return {
-      isSuccess: false
+      isSuccess: true
     };
   },
   mounted() {
-    // request({
-    //   url: api.SendCode,
-    //   data: {
-    //     phone: x
-    //   }
-    // });
+    request({
+      url: api.SendCode,
+      data: {
+        phone: x
+      }
+    });
   },
   components: {
     Feedback
