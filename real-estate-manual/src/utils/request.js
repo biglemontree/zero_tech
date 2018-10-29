@@ -1,26 +1,30 @@
 import axios from 'axios'
-
+import qs from 'qs'
+import store from 'store'
 // import appStore from '@/store'
 
 const service = axios.create({
-    baseURL: 'http://2121k4a180.iask.in:11898/jlbdc_gzh/',
+    baseURL: 'http://118.89.65.103:8080/jlbdc_gzh/',
     // baseURL: '',
     method: 'post',
-    timeout: 15000
+    // headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //     // 'Content-Type': 'application/json',
+    // },
+    timeout: 25000
 })
-axios.defaults.withCredentials = true
 service.interceptors.request.use(options => {
     console.log('request: ', options)
-    const config = options
+    const config = options   
     // const method = options.method.toUpperCase()
-    const field = 'params' // method === 'GET' ? 'params' : 'data'
+    const field = 'data' // method === 'GET' ? 'params' : 'data'
     // const token = appStore.token
-    // config.headers['TOKEN'] = 'token'
-
+    // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     // 添加token到查询参数中
-    // if (token) {
-    // }
-    config[field] = { ...options[field] }
+    if (store.token) {
+        config.data.token = store.token
+    }
+    config[field] = { ...options[field], token:  store.get('token')}
 
     return config
 }, error => Promise.reject(error))
@@ -29,9 +33,9 @@ service.interceptors.response.use(
     response => {
         console.log('response: ', response.data)
         const { data } = response
-        const code = String(data.retcode)
+        const code = String(data.msg.code)
         // Do something
-        if (+code === 0) {
+        if (+data.msg.code === 1) {
             return data
         }
 

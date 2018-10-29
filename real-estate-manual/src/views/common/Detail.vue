@@ -18,18 +18,28 @@
                     综合类型
                     <!-- <input class="weui-input" name="" type="text" emptyTips="请输入受理点" placeholder="请输入受理点"/> -->
                 </div>
-                <!-- <div class="weui-cell__bd">
-                    <select class="weui-select" name="select1">
-                        <option selected="" value="1">受理点</option>
-                        <option value="2">QQ号</option>
-                        <option value="3">Email</option>
-                    </select>
-                </div> -->
             </div>
         </div>
 
         <div class="weui-cells__title"></div>
         <div class="weui-cells">
+            <div class="weui-cell ">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">姓名</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" v-model="name" placeholder="请输入完整姓名">
+                </div>
+            </div>
+            <div class="weui-cell ">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">身份证号</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" v-model="IDCardNum" placeholder="请输入身份证号">
+                </div>
+            </div>
+            
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label for="" class="weui-label">预约时段</label></div>
                 <div class="weui-cell__bd">
@@ -44,37 +54,32 @@
                 </div>
             </div>
         </div>
-        <div class="weui-cells__title"></div>
-        <div class="weui-cells">
-            <div class="weui-cell ">
-                <div class="weui-cell__hd">
-                    <label class="weui-label">姓名</label>
-                </div>
-                <div class="weui-cell__bd">
-                </div>
-            </div>
-        </div>
-        <div class="weui-cells">
-            <div class="weui-cell ">
-                <div class="weui-cell__hd">
-                    <label class="weui-label">身份证号</label>
-                </div>
-                <div class="weui-cell__bd">
-                </div>
-            </div>
-        </div>
+        <div class="weui-cells__title">验证码输入</div>
         <div class="weui-cells">
             <div class="weui-cell ">
                 <div class="weui-cell__hd">
                     <label class="weui-label">手机号码</label>
                 </div>
                 <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" v-model="phone" placeholder="请输入手机号">
+                </div>
+            </div>
+        </div>
+        <div class="weui-cells">
+            <div class="weui-cell weui-cell_vcode">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">验证码</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="tel" v-model="code" placeholder="请输入验证码">
+                </div>
+                <div class="weui-cell__ft">
+                    <a href="javascript:;" @click="sendCode" class="weui-vcode-btn">获取验证码</a>
                 </div>
             </div>
         </div>
         <div class="weui-btn-area">
-            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="save">下一步</a>
-            <a href="javascript:;" class="weui-btn " @click="cancel">取消预约</a>
+            <a href="javascript:;" class="weui-btn weui-btn_primary">下一步</a>
         </div>
     </div>
     <Feedback v-else>
@@ -105,52 +110,20 @@ export default {
         name: '',
         IDCardNum: '',
         code: '',
-      isSuccess: true
+        isSuccess: true
     };
   },
   mounted() {
-    this.fetchAvaiTime()
-    request({
-        url: api.getTime,
-    })
+    //   request({
+    //         url: api.CheckUser,
+    //         data: {
+    //             phone: 18122059359,
+    //             IDCardNum: '4302415478441547',
+    //             code: '846945',
+    //             name: '汤汤'
+    //         }
+    //     })
   },
-  methods: {
-    fetchAvaiTime() {
-        request({
-            url: api.getTime,
-        });
-    },
-    save() {
-        request({
-            url: api.getTime,
-            data: {
-                // "FWSZXZQY":房屋所在行政区域,
-                // "YYSJD": 预约时间段,
-                // "YWLX": 预约业务类型id,
-                // "YWName": 预约业务类型名,
-                // "YYRQ":预约日期,
-                // "BDCDZ":不动产地址,
-                // "YYYWID": 预约业务类型Id,
-                // "YYYWName":预约业务名
-                // // "YWName":预约业务名,
-                // "name": 预约人姓名,
-                // "BLJG": 办理机构,
-                // "CARD_ID":身份证号,
-                // "id": "650857697473",
-                // "ZCLX": 资产类型（0国有1集体）
-            }
-        })
-    },
-    cancel() {
-        request({
-            url: api.cancelApply,
-            data: {yyId: 1444}
-        })
-    }
-  },
-  components: {
-    Feedback
-  }
 };
 </script>
 

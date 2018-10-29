@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Entry from './views/entry/Index.vue'
 import Agree from './views/entry/Agree.vue'
 import Register from './views/register/Index.vue'
+import Verify from './views/common/Verify.vue'
 
 Vue.use(Router)
 
@@ -27,8 +28,20 @@ export default new Router({
       meta: { title: '在线预约协议'}
     },
     {
+      path: '/verify',
+      name: 'verify',
+      component: Verify,
+      meta: { title: '在线预约资料填写'}
+    },
+    {
       path: '/register',
       name: 'register',
+      component: Register,
+      meta: { title: '在线预约资料填写'}
+    },
+    {
+      path: '/register/:id',
+      name: 'register/:id',
       component: Register,
       meta: { title: '在线预约资料填写'}
     },

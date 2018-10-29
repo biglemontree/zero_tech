@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isSuccess">
+    <div >
         <div >
             <img class="top" src="../../assets/logo.png" alt="" srcset="">
         </div>
@@ -8,35 +8,13 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">受理编号</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" name="" type="text" emptyTips="请输入受理编号" placeholder="请输入受理编号"/>
-                </div>
-            </div>
-        </div>
-        <div class="weui-cells__title">验证码输入</div>
-        <div class="weui-cells">
-            <div class="weui-cell ">
-                <div class="weui-cell__hd">
-                    <label class="weui-label">手机号码</label>
-                </div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input" type="tel" placeholder="请输入手机号">
-                </div>
-            </div>
-            <div class="weui-cell weui-cell_vcode">
-                <div class="weui-cell__hd">
-                    <label class="weui-label">验证码</label>
-                </div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input" type="tel" placeholder="请输入手机号">
-                </div>
-                <div class="weui-cell__ft">
-                    <a href="javascript:;" class="weui-vcode-btn">获取验证码</a>
+                    <input class="weui-input" v-model="SLID" type="text" emptyTips="请输入受理编号" placeholder="请输入受理编号"/>
                 </div>
             </div>
         </div>
 
         <div class="weui-btn-area">
-            <button class="weui-btn weui-btn_primary" id="showTooltips">确定</button>
+            <button class="weui-btn weui-btn_primary" id="showTooltips" @click="search">确定</button>
         </div>
     </div>
     <!-- <Feedback v-if="">
@@ -56,12 +34,23 @@
 </template>
 <script>
 import Feedback from "../common/Feedback"
+import request from '../../utils/request';
+import api from '../../constants/api';
 export default {
     name: 'agree',
     data() {
         return {
-            isSuccess: true,
-            status: ''
+            SLID: ''
+        }
+    },
+    methods: {
+        search() {
+            request({
+                url: api.queryPregress,
+                data: {
+                    SLID: this.SLID
+                }
+            })
         }
     },
   components: {
