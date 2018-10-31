@@ -13,5 +13,6 @@ export default {
     fileList: 'zmwjlx/fileList',
     queryPregress: '/query/queryPregress', // 进度查询
     getAllApplys: '/xsyy/getAllXsyy', // 查询所有预约
-    cancelApply: '/xsyy/cancel', // 查询所有预约
+    getApplyDetail: '/xsyy/getXsyy', // 查询所有预约
+    cancelApply: '/xsyy/cancel', // cancel预约
 }

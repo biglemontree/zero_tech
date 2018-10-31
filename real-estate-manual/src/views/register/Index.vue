@@ -31,15 +31,22 @@
         <div class="weui-cells__title"></div>
         <div class="weui-cells">
             <div class="weui-cell">
-                <div class="weui-cell__hd"><label for="" class="weui-label">预约时段</label></div>
+                <div class="weui-cell__hd"><label for="" class="weui-label">预约时间</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="date" value="" placeholder=""/>
-                </div>
-                <div class="weui-cell__bd">
-                    <select class="weui-select" name="select1">
-                        <option selected="" value="1">受理点</option>
-                        <option value="2">QQ号</option>
+                    <div v-if="isDeail">{{detail.YYSJD}}</div>
+                    <!-- <input v-else class="weui-input" type="date" value="" placeholder=""/> -->
+                    <select class="weui-select" name="YYRQ">
+                        <option selected="" value="2018-09-30">2018-09-30</option>
+                        <option value="2018-09-31">2018-09-31</option>
                         <option value="3">Email</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell ">
+                <div class="weui-cell__hd"><label class="weui-label">预约时段</label></div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="YYSJD">
+                        <option selected="" v-for="(item, index) in availTime" :key="index" value="item.SJD">{{item.SJD}}</option>
                     </select>
                 </div>
             </div>
@@ -53,8 +60,6 @@
                 <div class="weui-cell__bd">
                 </div>
             </div>
-        </div>
-        <div class="weui-cells">
             <div class="weui-cell ">
                 <div class="weui-cell__hd">
                     <label class="weui-label">身份证号</label>
@@ -62,8 +67,6 @@
                 <div class="weui-cell__bd">
                 </div>
             </div>
-        </div>
-        <div class="weui-cells">
             <div class="weui-cell ">
                 <div class="weui-cell__hd">
                     <label class="weui-label">手机号码</label>
@@ -73,8 +76,8 @@
             </div>
         </div>
         <div class="weui-btn-area">
-            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="save">下一步</a>
-            <a href="javascript:;" class="weui-btn " @click="cancel">取消预约</a>
+            <a href="javascript:;" class="cancel weui-btn weui-btn_default" v-if="isDeail" @click="cancel">取消预约</a>
+            <a href="javascript:;" class="weui-btn weui-btn_primary" v-else @click="save">下一步</a>
         </div>
     </div>
     <Feedback v-else>
@@ -101,24 +104,42 @@ export default {
   name: "home",
   data() {
     return {
+        isSuccess: true,
+        isDeail: false,
+        availTime: [],
         phone: null,
         name: '',
         IDCardNum: '',
-        code: '',
-      isSuccess: true
+        "YYSJD": '',
+        "YWLX": '',// 预约业务类型id,
+        "YWName": '',// 预约业务类型名,
+        YYRQ:'2018-10-30', // 日期
     };
   },
   mounted() {
-    this.fetchAvaiTime()
-    request({
-        url: api.getTime,
-    })
+    const {id} = this.$route.params 
+    if (id) {
+        request({
+            url: api.getApplyDetail,
+            data: {
+                yyId: id
+            }
+        }).then(r => {
+            this.detail = r.data
+            this.isDeail = true
+        })
+    } else {
+        this.fetchAvaiTime()
+    }
   },
   methods: {
     fetchAvaiTime() {
         request({
             url: api.getTime,
-        });
+            data: {
+                date: this.YYRQ
+            }
+        }).then(r => this.availTime = r.rows);
     },
     save() {
         request({
@@ -142,10 +163,11 @@ export default {
         })
     },
     cancel() {
+        const {id} = this.$route.params
         request({
             url: api.cancelApply,
-            data: {yyId: 1444}
-        })
+            data: {yyId: id}
+        }).then(() => weui.toast('取消成功'))
     }
   },
   components: {

@@ -7,10 +7,6 @@ const service = axios.create({
     baseURL: 'http://118.89.65.103:8080/jlbdc_gzh/',
     // baseURL: '',
     method: 'post',
-    // headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //     // 'Content-Type': 'application/json',
-    // },
     timeout: 25000
 })
 service.interceptors.request.use(options => {
@@ -33,10 +29,12 @@ service.interceptors.response.use(
     response => {
         console.log('response: ', response.data)
         const { data } = response
-        const code = String(data.msg.code)
+        const code = data.msg.code
         // Do something
-        if (+data.msg.code === 1) {
+        if (+code === 1) {
             return data
+        } else if(code === 0) {
+            window.location = "/#/verify"
         }
 
         return Promise.reject(data)
