@@ -112,11 +112,9 @@ export default {
             }
         }).then(r => {
             store.set('token', r.data)
-            console.log(router)
             this.$router.push({
                 path: '/register',
             })
-            // this.p
         })
     }
   },

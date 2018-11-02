@@ -34,11 +34,8 @@
                 <div class="weui-cell__hd"><label for="" class="weui-label">预约时间</label></div>
                 <div class="weui-cell__bd">
                     <div v-if="isDeail">{{detail.YYSJD}}</div>
-                    <!-- <input v-else class="weui-input" type="date" value="" placeholder=""/> -->
-                    <select class="weui-select" name="YYRQ">
-                        <option selected="" value="2018-09-30">2018-09-30</option>
-                        <option value="2018-09-31">2018-09-31</option>
-                        <option value="3">Email</option>
+                    <select class="weui-select" name="YYRQ" v-model="YYRQ">
+                        <option selected="" @click="fetchDate" v-for="(item, index) in availDate" :key="index" value="item.createTime">{{item.createTime}}</option>
                     </select>
                 </div>
             </div>
@@ -93,6 +90,8 @@
 
 <script>
 import axios from 'axios'
+import store from 'store'
+import vstore from '@/index.js'
 import NodeRSA from "node-rsa";
 import qs from 'qs'
 import request from "../../utils/request";
@@ -106,6 +105,7 @@ export default {
     return {
         isSuccess: true,
         isDeail: false,
+        availDate: [],
         availTime: [],
         phone: null,
         name: '',
@@ -116,6 +116,7 @@ export default {
         YYRQ:'2018-10-30', // 日期
     };
   },
+  store: vstore,
   mounted() {
     const {id} = this.$route.params 
     if (id) {
@@ -132,6 +133,10 @@ export default {
         this.fetchAvaiTime()
     }
   },
+  computed: {
+    //   this.$store.state
+    store.dispatch('fetchUserInfo')
+  },
   methods: {
     fetchAvaiTime() {
         request({
@@ -141,22 +146,29 @@ export default {
             }
         }).then(r => this.availTime = r.rows);
     },
+    fetchDate() {
+        request({
+            url: api.getDate,
+        }).then(r => this.availDate = r.row);
+    },
     save() {
         request({
             url: api.getTime,
             data: {
-                // "FWSZXZQY":房屋所在行政区域,
+                YYSJD: this.YYSJD,
+                YYRQ: this.YYRQ
                 // "YYSJD": 预约时间段,
+                // "YYRQ":预约日期,
+                // "CARD_ID":身份证号,
+                // "FWSZXZQY":房屋所在行政区域,
                 // "YWLX": 预约业务类型id,
                 // "YWName": 预约业务类型名,
-                // "YYRQ":预约日期,
                 // "BDCDZ":不动产地址,
                 // "YYYWID": 预约业务类型Id,
                 // "YYYWName":预约业务名
                 // // "YWName":预约业务名,
                 // "name": 预约人姓名,
                 // "BLJG": 办理机构,
-                // "CARD_ID":身份证号,
                 // "id": "650857697473",
                 // "ZCLX": 资产类型（0国有1集体）
             }
