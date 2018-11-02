@@ -80,12 +80,7 @@ export default {
     sendCode() {
         const phone = this.genRsaKey(+this.phone)
         console.log(phone)
-        // const key = new NodeRSA();
-        // key.setOptions({ encryptionScheme: "pkcs1" });
-        // key.importKey(consts.publicKey);
-        // const phone = key.encrypt(18122059359, "base64")
         request({
-
             url: api.SendCode,
             data: {phone}
         });
@@ -94,10 +89,7 @@ export default {
         const key = new NodeRSA();
         key.setOptions({ encryptionScheme: "pkcs1" });
         key.importKey(consts.publicKey);
-        console.log(consts.publicKey)
         const x = key.encrypt(content, "base64");
-        console.log(x);
-        
         return x
     },
     checkUser() {

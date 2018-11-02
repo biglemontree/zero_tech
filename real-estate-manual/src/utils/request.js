@@ -33,7 +33,7 @@ service.interceptors.response.use(
         // Do something
         if (+code === 1) {
             return data
-        } else if(code === 0) {
+        } else if(code === 422) {
             window.location = "/#/verify"
         }
 

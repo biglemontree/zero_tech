@@ -5,6 +5,7 @@ import Entry from './views/entry/Index.vue'
 import Agree from './views/entry/Agree.vue'
 import Register from './views/register/Index.vue'
 import Verify from './views/common/Verify.vue'
+import PreAudit from './views/preAudit/Index.vue'
 
 Vue.use(Router)
 
@@ -44,6 +45,12 @@ export default new Router({
       name: 'register/:id',
       component: Register,
       meta: { title: '在线预约资料填写'}
+    },
+    {
+      path: '/preAudit',
+      name: 'preAudit',
+      component: PreAudit,
+      meta: { title: '申请登记事由'}
     },
     {
       path: '/list',

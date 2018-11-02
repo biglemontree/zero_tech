@@ -35,15 +35,15 @@
                 <div class="weui-cell__bd">
                     <div v-if="isDeail">{{detail.YYSJD}}</div>
                     <select class="weui-select" name="YYRQ" v-model="YYRQ">
-                        <option selected="" @click="fetchDate" v-for="(item, index) in availDate" :key="index" value="item.createTime">{{item.createTime}}</option>
+                        <option :selected="availDate[0].createTime" @click="fetchDate" v-for="(item, index) in availDate" :key="index" :value="item.createTime">{{item.createTime}}</option>
                     </select>
                 </div>
             </div>
             <div class="weui-cell ">
                 <div class="weui-cell__hd"><label class="weui-label">预约时段</label></div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="YYSJD">
-                        <option selected="" v-for="(item, index) in availTime" :key="index" value="item.SJD">{{item.SJD}}</option>
+                    <select class="weui-select" name="YYSJD" v-model="YYSJD">
+                        <option :selected="availTime[0].SJD" v-for="(item, index) in availTime" :key="index" :value="item.SJD">{{item.SJD}}</option>
                     </select>
                 </div>
             </div>
@@ -55,6 +55,7 @@
                     <label class="weui-label">姓名</label>
                 </div>
                 <div class="weui-cell__bd">
+                    {{$store.state.userInfo.userName}}
                 </div>
             </div>
             <div class="weui-cell ">
@@ -62,6 +63,7 @@
                     <label class="weui-label">身份证号</label>
                 </div>
                 <div class="weui-cell__bd">
+                    {{$store.state.userInfo.cardId}}
                 </div>
             </div>
             <div class="weui-cell ">
@@ -69,6 +71,7 @@
                     <label class="weui-label">手机号码</label>
                 </div>
                 <div class="weui-cell__bd">
+                    {{$store.state.userInfo.phone}}
                 </div>
             </div>
         </div>
@@ -89,9 +92,9 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapState, mapMutations } from 'vuex'
 import store from 'store'
-import vstore from '@/index.js'
+import vstore from '@/store.js'
 import NodeRSA from "node-rsa";
 import qs from 'qs'
 import request from "../../utils/request";
@@ -107,9 +110,9 @@ export default {
         isDeail: false,
         availDate: [],
         availTime: [],
-        phone: null,
-        name: '',
-        IDCardNum: '',
+        // phone: null,
+        // name: '',
+        // IDCardNum: '',
         "YYSJD": '',
         "YWLX": '',// 预约业务类型id,
         "YWName": '',// 预约业务类型名,
@@ -130,14 +133,23 @@ export default {
             this.isDeail = true
         })
     } else {
-        this.fetchAvaiTime()
+        this.fetchDate()
+        this.fetchUserInfo()
+        // this.$store.dispatch('fetchUserInfo')
     }
+
   },
   computed: {
+      ...mapState(['userInfo'])
     //   this.$store.state
-    store.dispatch('fetchUserInfo')
+  },
+  watch: {
+      YYRQ() {
+            this.fetchAvaiTime()
+      }
   },
   methods: {
+      ...mapMutations(['fetchUserInfo']),
     fetchAvaiTime() {
         request({
             url: api.getTime,
@@ -149,26 +161,26 @@ export default {
     fetchDate() {
         request({
             url: api.getDate,
-        }).then(r => this.availDate = r.row);
+        }).then(r => this.availDate = r.rows);
     },
     save() {
+        const {userName, phone, cardId} = this.userInfo
         request({
-            url: api.getTime,
+            url: api.onlineApply,
             data: {
                 YYSJD: this.YYSJD,
-                YYRQ: this.YYRQ
+                YYRQ: this.YYRQ,
                 // "YYSJD": 预约时间段,
                 // "YYRQ":预约日期,
-                // "CARD_ID":身份证号,
+                "CARD_ID": cardId, // 身份证号,
                 // "FWSZXZQY":房屋所在行政区域,
-                // "YWLX": 预约业务类型id,
-                // "YWName": 预约业务类型名,
+                "YWLX": '综合类型', // 预约业务类型,
                 // "BDCDZ":不动产地址,
                 // "YYYWID": 预约业务类型Id,
-                // "YYYWName":预约业务名
-                // // "YWName":预约业务名,
-                // "name": 预约人姓名,
-                // "BLJG": 办理机构,
+                // "YYYWName":预约业务名(小分类)
+                // "YWName": '',// 预约业务类型名（大分类）,
+                "name": userName, // 预约人姓名,
+                "BLJG": '蕉岭县', // 办理机构,
                 // "id": "650857697473",
                 // "ZCLX": 资产类型（0国有1集体）
             }

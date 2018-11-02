@@ -11,6 +11,8 @@ export default {
     getTime: '/xsyy/getTime', //获取时间段和可预约人数
     getDate: '/xsyy/getDate',
     onlineApply: '/xsyy/save', //线上预约
+    getYwList: '/yw/getYwList', //线上预约
+    saveSqb: '/sqb/saveSqb', //线上审核
     fileList: 'zmwjlx/fileList',
     fetchUserInfo: '/user/getUserInfo',
     queryPregress: '/query/queryPregress', // 进度查询
