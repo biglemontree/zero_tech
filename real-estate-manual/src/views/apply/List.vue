@@ -9,7 +9,7 @@
                 <h4 class="weui-media-box__title">申请人：{{row.name}}</h4>
                 <p class="weui-media-box__desc">预约时段：{{row.YYSJD}}</p>
             </div>
-            <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div>
+            <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft">{{row.status===0 ? '未处理' : row.status===1 ? '已处理' : '已取消'}}</span></a></div>
         </router-link>
     </div>
 </div>

@@ -6,6 +6,8 @@ import Agree from './views/entry/Agree.vue'
 import Register from './views/register/Index.vue'
 import Verify from './views/common/Verify.vue'
 import PreAudit from './views/preAudit/Index.vue'
+import User from './views/preAudit/User.vue'
+import Info from './views/preAudit/Info.vue'
 
 Vue.use(Router)
 
@@ -14,7 +16,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+          component: Register
     },
     {
       path: '/entry',
@@ -51,6 +53,18 @@ export default new Router({
       name: 'preAudit',
       component: PreAudit,
       meta: { title: '申请登记事由'}
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: User,
+      meta: { title: '申请人情况'}
+    },
+    {
+      path: '/info',
+      name: 'info',
+      component: Info,
+      meta: { title: '不动产情况'}
     },
     {
       path: '/list',

@@ -45,8 +45,6 @@
         </div>
         <div class="weui-btn-area">
             <a href="javascript:;" class="weui-btn weui-btn_primary" @click="checkUser">下一步</a>
-            <!-- <router-link to="/register">
-            </router-link> -->
         </div>
     </div>
         

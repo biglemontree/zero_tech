@@ -10,15 +10,15 @@
         </div> -->
         <div class="weui-cells__title">登记类型选择</div>
         <div class="weui-cells">
-            <div class="weui-cell__hd"><label for="" class="weui-label">变更登记</label></div>
+            <!-- <div class="weui-cell__hd"><label for="" class="weui-label">变更登记</label></div> -->
             <div class="weui-cell__bd">
-                <select class="weui-select" name="YYRQ" v-model="YYRQ">
-                    <option :selected="signTypes[0].createTime" @click="fetchDate" v-for="(item, index) in signTypes" :key="index" :value="item.name">{{item.name}}</option>
+                <select class="weui-select" name="DJLX" v-model="DJLX">
+                    <option :selected="signTypes[0].DJLX" v-for="(item, index) in signTypes" :key="index" :value="item.DJLX">{{item.DJLX}}</option>
                 </select>
             </div>
         </div>
        
-       <div class="weui-cells__title">复选列表项</div>
+       <div class="weui-cells__title">申请类型选择</div>
         <div class="weui-cells weui-cells_checkbox">
             <label class="weui-cell weui-check__label" for="s11">
                 <div class="weui-cell__hd">
@@ -26,7 +26,7 @@
                     <i class="weui-icon-checked"></i>
                 </div>
                 <div class="weui-cell__bd">
-                    <p>standard is dealt for u.</p>
+                    <p>单方申请</p>
                 </div>
             </label>
             <label class="weui-cell weui-check__label" for="s12">
@@ -35,12 +35,18 @@
                     <i class="weui-icon-checked"></i>
                 </div>
                 <div class="weui-cell__bd">
-                    <p>standard is dealicient for u.</p>
+                    <p>双方申请</p>
                 </div>
             </label>
-            <a href="javascript:void(0);" class="weui-cell weui-cell_link">
-                <div class="weui-cell__bd">添加更多</div>
-            </a>
+            <label class="weui-cell weui-check__label" for="s12">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" class="weui-check" id="s12">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>其他</p>
+                </div>
+            </label>
         </div>
         <div class="weui-btn-area">
             <a href="javascript:;" class="weui-btn weui-btn_primary" @click="checkUser">下一步</a>
