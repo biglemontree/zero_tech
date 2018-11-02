@@ -4,7 +4,7 @@
         <div class="weui-cells">
             <div class="weui-cell ">
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" v-model="QLRXM" placeholder="请输入地址">
+                    <input class="weui-input" type="text" v-model="ZL" placeholder="请输入地址">
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
                     <label class="weui-label">宗地代码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" v-model="QLRXM" placeholder="请输入宗地代码">
+                    <input class="weui-input" type="text" v-model="ZDDM" placeholder="请输入宗地代码">
                 </div>
             </div>
         </div>
@@ -41,10 +41,17 @@
         </div>
         <div class="weui-cells__title">宗地用途</div>
         <div class="weui-cells">
-            <select class="weui-select" name="QLRZJLX" v-model="QLRZJLX">
-                <option selected="住宅" value="住宅">住宅</option>
-                <option value="商铺">商铺</option>
-            </select>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">宅基地</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="BDCLX" v-model="BDCLX">
+                    <option selected="住宅" value="住宅">住宅</option>
+                    <option value="商铺">商铺</option>
+                </select>
+                </div>
+            </div>
         </div>
         <div class="weui-cells__title">宗地信息</div>
         <div class="weui-cells">
@@ -59,7 +66,23 @@
                     </select>
                 </div>
             </div>
-            
+            <div class="weui-cell ">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">宗地面积</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" v-model="YT" placeholder="平方米">
+                </div>
+            </div>
+            <div class="weui-cell ">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">建筑物面积</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" v-model="QLRXM" placeholder="平方米">
+                </div>
+            </div>
+
         </div>
         <div class="weui-btn-area">
             <a href="javascript:;" class="weui-btn weui-btn_primary" @click="save">下一步</a>
@@ -83,7 +106,12 @@ export default {
       QLRZJH: "",
       QLRYB: "",
       QLRZJLX: "",
-      QLRXM: ""
+      QLRXM: "",
+
+        ZL: '',
+        ZDDM: '',
+      YT: '',
+      JZWMJ: ''
     };
   },
   store: vstore,
