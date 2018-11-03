@@ -10,10 +10,10 @@ export default {
     getTime: '/xsyy/getTime', //获取时间段和可预约人数
     getDate: '/xsyy/getDate',
     onlineApply: '/xsyy/save', //线上预约
-    getYwList: '/yw/getYwList', //线上预约
+    getYwList: '/yw/getYwList', //
     saveSqb: '/sqb/saveSqb', //线上审核
     getTdqllxList: '/tdqllx/getTdqllxList', // tu
-    fileList: 'zmwjlx/fileList',
+    fileList: 'zmwjlx/fileList', // zmwjlx/fileList
     geetBdcslqkList: 'bdcslqk/geetBdcslqkList', // 不动产设立情况
     fetchUserInfo: '/user/getUserInfo',
     getYwInfoList: '/yw/getYwInfoList', // 小分类

@@ -7,11 +7,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        userInfo: {}
+        userInfo: {},
+        onlineData: {
+            // DJLX, SQLX, todo
+        },
+        needUploads: []
     },
     mutations: {
-        setToken(state, token) {
-            state.token = token
+        setOnlineData(state, data) {
+            state.onlineData = data
         },
         fetchUserInfo(state) {
             request({
@@ -19,7 +23,17 @@ export default new Vuex.Store({
             }).then(r => {
                 state.userInfo = r.data
             })
-        }
+        },
+        fetchNeedFiles(state) {
+            request({
+                url: api.fileList,
+                data: {
+                    YWID: state.onlineData.todo
+                }
+            }).then(r => {
+                state.needUploads = r.rows
+            })
+        },
     },
     actions: {
 

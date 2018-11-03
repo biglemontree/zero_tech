@@ -137,7 +137,6 @@ export default {
   },
   computed: {
       ...mapState(['userInfo'])
-    //   this.$store.state
   },
   watch: {
       YYRQ() {

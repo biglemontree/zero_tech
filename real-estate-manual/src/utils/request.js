@@ -34,7 +34,7 @@ service.interceptors.response.use(
         if (+code === 1) {
             return data
         } else if(code === 422) {
-            window.location = "/#/verify"
+            window.location = "/#/agree"
         }
 
         return Promise.reject(data)

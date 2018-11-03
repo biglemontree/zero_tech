@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to="/agree">
+        <router-link to="/register">
             <div class="up flex items-center center justify-center">
                 <div>
                     <img src="../../assets/online-apply.png" alt="" srcset="">
@@ -9,7 +9,7 @@
                 </div>
             </div>
         </router-link>
-        <router-link to="/agree">
+        <router-link to="/list">
             <div class="down flex items-center center justify-center">
                 <div>
                     <img src="../../assets/search-info.png" alt="" srcset="">

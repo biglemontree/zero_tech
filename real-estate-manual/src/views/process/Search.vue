@@ -35,6 +35,10 @@
 <script>
 import Feedback from "../common/Feedback"
 import request from '../../utils/request';
+import store from 'store'
+import vstore from '@/store'
+import { mapState, mapMutations } from 'vuex'
+
 import api from '../../constants/api';
 export default {
     name: 'agree',
@@ -43,7 +47,12 @@ export default {
             SLID: ''
         }
     },
+    store: vstore,
+    mounted() {
+        this.fetchUserInfo()
+    },
     methods: {
+        ...mapMutations(['fetchUserInfo']),
         search() {
             request({
                 url: api.queryPregress,

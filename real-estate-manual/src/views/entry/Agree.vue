@@ -11,7 +11,7 @@
         </label>
 
         <div class="weui-btn-area">
-            <router-link to="/register">
+            <router-link to="/verify">
                 <button class="weui-btn weui-btn_primary" id="showTooltips">确定</button>
             </router-link>
             <a class="cancel weui-btn weui-btn_default" href="javascript:" id="cancel">取消</a>

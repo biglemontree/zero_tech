@@ -7,7 +7,7 @@
                     <label class="weui-label">权利人姓名</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" v-model="QLRXM" :defaultValue="userInfo.userName" placeholder="请输入证件号">
+                    <input class="weui-input" type="text" v-model="QLRXM" placeholder="请输入姓名">
                 </div>
             </div>
             <div class="weui-cell ">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="weui-cell__bd">
                     <!-- v-model="QLRZJH" -->
-                    <input class="weui-input" type="text"  :value="userInfo.cardId" placeholder="请输入证件号">
+                    <input class="weui-input" type="text"  v-model="QLRZJH" placeholder="请输入证件号">
                 </div>
             </div>
             <div class="weui-cell ">
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="weui-btn-area">
-            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="save">下一步</a>
+            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="save">tijiao</a>
         </div>
     </div>
         
@@ -65,11 +65,11 @@ export default {
   name: "user",
   data() {
     return {
-        QLRTXDZ: '',
-        QLRZJH: '',
-        QLRYB: '',
+        QLRXM: vstore.state.userInfo.userName,
         QLRZJLX: '',
-        QLRXM: ''
+        QLRZJH: vstore.state.userInfo.cardId,
+        QLRYB: '',
+        QLRTXDZ: '',
     };
   },
   store: vstore,
@@ -78,7 +78,7 @@ export default {
 
   },
   computed: {
-      ...mapState(['userInfo'])
+      ...mapState(['userInfo', 'onlineData'])
     //   this.$store.state
   },
   methods: {
@@ -102,23 +102,17 @@ export default {
         }).then(r => this.availDate = r.rows);
     },
     save() {
-        const {userName, phone, cardId} = this.userInfo
+        const {DJLX} = this.onlineData
+        const {QLRXM, QLRZJLX, QLRZJH, QLRYB,
+QLRTXDZ} = this
         request({
-            url: api.onlineApply,
+            url: api.saveSqb,
             data: {
-                YYSJD: this.YYSJD, // "YYSJD": 预约时间段,
-                YYRQ: this.YYRQ, // "YYRQ":预约日期,
-                "CARD_ID": cardId, // 身份证号,
-                // "FWSZXZQY":房屋所在行政区域,
-                QLRZJLX: this.QLRZJLX, // 预约业务类型,
-                // "BDCDZ":不动产地址,
-                // "YYYWID": 预约业务类型Id,
-                // "YYYWName":预约业务名(小分类)
-                // "YWName": '',// 预约业务类型名（大分类）,
-                "name": userName, // 预约人姓名,
-                "BLJG": '蕉岭县', // 办理机构,
+                QLRXM, QLRZJLX, QLRZJH, QLRYB,
+                QLRTXDZ,
+                YWLX: DJLX.name
             }
-        }).then(() => this.isSuccess = true)
+        }).then(() => weui.totast('success'))
     },
   },
 };

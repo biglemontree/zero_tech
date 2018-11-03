@@ -8,6 +8,8 @@ import Verify from './views/common/Verify.vue'
 import PreAudit from './views/preAudit/Index.vue'
 import User from './views/preAudit/User.vue'
 import Info from './views/preAudit/Info.vue'
+import Upload from './views/preAudit/Upload.vue'
+
 
 Vue.use(Router)
 
@@ -59,6 +61,12 @@ export default new Router({
       name: 'user',
       component: User,
       meta: { title: '申请人情况'}
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component: Upload,
+      meta: { title: '证明文件'}
     },
     {
       path: '/info',
