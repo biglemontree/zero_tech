@@ -13,11 +13,19 @@
             <!-- <div class="weui-cell__hd"><label for="" class="weui-label">变更登记</label></div> -->
             <div class="weui-cell__bd">
                 <select class="weui-select" name="DJLX" v-model="DJLX">
-                    <option :selected="signTypes[0].DJLX" v-for="(item, index) in signTypes" :key="index" :value="item.DJLX">{{item.DJLX}}</option>
+                    <option :selected="signTypes[0].name" @click="fetchYwInfoList" v-for="(item, index) in signTypes" :key="index" :value="item.name">{{item.name}}</option>
                 </select>
             </div>
         </div>
-       
+       <div class="weui-cells__title">详细类型</div>
+        <div class="weui-cells">
+            <!-- <div class="weui-cell__hd"><label for="" class="weui-label">变更登记</label></div> -->
+            <div class="weui-cell__bd">
+                <select class="weui-select" name="todo" v-model="todo">
+                    <option :selected="ywInfoList[0].name" v-for="(item, index) in ywInfoList" :key="index" :value="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
        <div class="weui-cells__title">申请类型选择</div>
         <div class="weui-cells weui-cells_checkbox">
             <label class="weui-cell weui-check__label" for="s11">
@@ -67,12 +75,22 @@ export default {
   name: "preAudit",
   data() {
     return {
+        todo: '',
+        DJLX: '',
+        checkUser: false,
         tdTypes: [],
         signTypes: [],
+        ywInfoList: []
     };
   },
   mounted() {
-    this.fetchTdTypes()
+    // this.fetchTdTypes()
+    this.fetchSignTypes()
+  },
+  watch: {
+      DJLX() {
+            this.fetchYwInfoList()
+      }
   },
   methods: {
     fetchSignTypes() {
@@ -80,6 +98,16 @@ export default {
             url: api.getYwList
         }).then(r => {
             this.signTypes = r.rows
+        })
+    },
+    fetchYwInfoList() {
+        request({
+            url: api.getYwInfoList,
+            data: {
+                type: this.DJLX
+            }
+        }).then(r => {
+            this.ywInfoList = r.rows
         })
     },
     fetchTdTypes() {

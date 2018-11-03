@@ -2,7 +2,6 @@ export default {
     SendCode: 'user/sendCode',
     CheckUser: 'user/checkUser',
     getTdlxList: 'tdlx/getTdlxList',
-    geetBdcslqkList: 'bdcslqk/geetBdcslqkList',
     getDjlxList: 'djlx/getDjlxList',
     getDjyyList: 'djyy/getDjyyList',
     getDlrlxList: 'dlrlx/getDlrlxList',
@@ -13,8 +12,11 @@ export default {
     onlineApply: '/xsyy/save', //线上预约
     getYwList: '/yw/getYwList', //线上预约
     saveSqb: '/sqb/saveSqb', //线上审核
+    getTdqllxList: '/tdqllx/getTdqllxList', // tu
     fileList: 'zmwjlx/fileList',
+    geetBdcslqkList: 'bdcslqk/geetBdcslqkList', // 不动产设立情况
     fetchUserInfo: '/user/getUserInfo',
+    getYwInfoList: '/yw/getYwInfoList', // 小分类
     queryPregress: '/query/queryPregress', // 进度查询
     getAllApplys: '/xsyy/getAllXsyy', // 查询所有预约
     getApplyDetail: '/xsyy/getXsyy', // 查询所有预约

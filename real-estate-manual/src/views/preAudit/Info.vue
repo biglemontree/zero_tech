@@ -46,7 +46,7 @@
                     <label class="weui-label">宅基地</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="BDCLX" v-model="BDCLX">
+                    <select class="weui-select" name="YT" v-model="YT"> // todo
                     <option selected="住宅" value="住宅">住宅</option>
                     <option value="商铺">商铺</option>
                 </select>
@@ -71,7 +71,7 @@
                     <label class="weui-label">宗地面积</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" v-model="YT" placeholder="平方米">
+                    <input class="weui-input" type="text" v-model="ZDMJ" placeholder="平方米">
                 </div>
             </div>
             <div class="weui-cell ">
@@ -84,8 +84,48 @@
             </div>
 
         </div>
+        <div class="weui-cells__title">不动产设立情况 </div>
+        <div class="weui-cells weui-cells_checkbox">
+            <label class="weui-cell weui-check__label" for="s11">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>地表 </p>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="s12">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" class="weui-check" id="s12">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>地上</p>
+                </div>
+            </label>
+            <label class="weui-cell weui-check__label" for="s12">
+                <div class="weui-cell__hd">
+                    <input type="checkbox" name="checkbox1" class="weui-check" id="s12">
+                    <i class="weui-icon-checked"></i>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>地下</p>
+                </div>
+            </label>
+        </div>
+        <div class="weui-cells__title">土地权利</div>
+         <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="BDCLX" v-model="TDLX">
+                        <option :selected="index===0 && tdTypes[0].TDQLLX" v-for="(item, index) in tdTypes" :key="index" :value="item.TDQLLX">{{item.TDQLLX}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <div class="weui-btn-area">
-            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="save">下一步</a>
+            <a href="javascript:;" class="weui-btn weui-btn_primary" >下一步</a>
         </div>
     </div>
         
@@ -108,15 +148,21 @@ export default {
       QLRZJLX: "",
       QLRXM: "",
 
+        ZDMJ: '',
         ZL: '',
         ZDDM: '',
       YT: '',
-      JZWMJ: ''
+      JZWMJ: '',
+      TDLX: '',
+      bdcTypes: [], //
+      tdTypes: [],
     };
   },
   store: vstore,
   mounted() {
-    this.fetchUserInfo();
+    // this.fetchUserInfo();
+    this.fetchTdType();
+    this.fetchBdcType()
   },
   computed: {
     ...mapState(["userInfo"])
@@ -124,43 +170,17 @@ export default {
   },
   methods: {
     ...mapMutations(["fetchUserInfo"]),
-    fetchAvaiTime() {
+    fetchTdType() { // 土地权利类型
       request({
-        url: api.getTime,
-        data: {
-          date: this.YYRQ
-        }
-      }).then(r => (this.availTime = r.rows));
+        url: api.getTdqllxList,
+      }).then(r => (this.tdTypes = r.rows));
     },
-    fetchYwType() {
+    fetchBdcType() {
       request({
-        url: api.getYwList
-      }).then(r => (this.ywTypes = r.rows));
+        url: api.geetBdcslqkList
+      }).then(r => (this.bdcTypes = r.rows));
     },
-    fetchDate() {
-      request({
-        url: api.getDate
-      }).then(r => (this.availDate = r.rows));
-    },
-    save() {
-      const { userName, phone, cardId } = this.userInfo;
-      request({
-        url: api.onlineApply,
-        data: {
-          YYSJD: this.YYSJD, // "YYSJD": 预约时间段,
-          YYRQ: this.YYRQ, // "YYRQ":预约日期,
-          CARD_ID: cardId, // 身份证号,
-          // "FWSZXZQY":房屋所在行政区域,
-          QLRZJLX: this.QLRZJLX, // 预约业务类型,
-          // "BDCDZ":不动产地址,
-          // "YYYWID": 预约业务类型Id,
-          // "YYYWName":预约业务名(小分类)
-          // "YWName": '',// 预约业务类型名（大分类）,
-          name: userName, // 预约人姓名,
-          BLJG: "蕉岭县" // 办理机构,
-        }
-      }).then(() => (this.isSuccess = true));
-    }
+    
   }
 };
 </script>
