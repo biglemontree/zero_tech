@@ -18,21 +18,23 @@ export default new Vuex.Store({
             state.onlineData = data
         },
         fetchUserInfo(state) {
-            request({
+            return request({
                 url: api.fetchUserInfo
             }).then(r => {
                 state.userInfo = r.data
             })
         },
         fetchNeedFiles(state) {
-            request({
+            return request({
                 url: api.fileList,
                 data: {
                     YWID: state.onlineData.todo
                 }
-            }).then(r => {
-                state.needUploads = r.rows
             })
+            // .then(r => {
+            //     state.needUploads = r.rows
+            //     return r
+            // })
         },
     },
     actions: {

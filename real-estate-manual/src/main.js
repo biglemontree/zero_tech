@@ -1,6 +1,6 @@
 import Vue from 'vue'
 // import 'weui';
-// import weui from 'weui.js'
+import storage from 'store'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -17,6 +17,13 @@ router.beforeEach((to, from, next) => {
   }
   next()
 })
+
+  if (!storage.get('token')) {
+    debugger
+      router.push({
+        path: '/agree',
+    })
+  }
 new Vue({
   router,
   store,

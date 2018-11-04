@@ -16,6 +16,7 @@ export default {
     fileList: 'zmwjlx/fileList', // zmwjlx/fileList
     geetBdcslqkList: 'bdcslqk/geetBdcslqkList', // 不动产设立情况
     fetchUserInfo: '/user/getUserInfo',
+    uploadFile: '/zmwjlx/uploadFile',
     getYwInfoList: '/yw/getYwInfoList', // 小分类
     queryPregress: '/query/queryPregress', // 进度查询
     getAllApplys: '/xsyy/getAllXsyy', // 查询所有预约
