@@ -6,22 +6,22 @@
                 <div class="weui-uploader">
                     <div class="weui-uploader__hd">
                         <p class="weui-uploader__title">{{item.WJLX}}</p>
-                        <div class="weui-uploader__info">0/2</div>
+                        <!-- <div class="weui-uploader__info">0/2</div> -->
                     </div>
                     <div class="weui-uploader__bd">
-                        <!-- <ul class="weui-uploader__files" id="uploaderFiles">
+                        <ul class="weui-uploader__files" id="uploaderFiles">
                             
-                            <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                            <li v-for="(file, index) in fileList" :key="index" class="weui-uploader__file weui-uploader__file_status" :style="`background-image:url(${imgURL}/${file.url})`">
                                 <div class="weui-uploader__file-content">
                                     <i class="weui-icon-warn"></i>
                                 </div>
                             </li>
-                            <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                            <!-- <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
                                 <div class="weui-uploader__file-content">50%</div>
-                            </li>
-                        </ul> -->
+                            </li> -->
+                        </ul>
                         <div class="weui-uploader__input-box">
-                            <input id="uploaderInput" :dataset="item.id" class="weui-uploader__input" type="file" accept="image/*" />
+                            <input id="uploaderInput" :dataset="item.id" class="weui-uploader__input" type="file" accept="image/*" multiple />
                         </div>
                     </div>
                 </div>
@@ -38,22 +38,42 @@ import store from 'store'
 import vstore from '@/store.js'
 import { mapState, mapMutations } from 'vuex'
  
-import request,{baseURL} from "../../utils/request";
+import request,{baseURL, imgURL} from "../../utils/request";
 import api from "../../constants/api";
 
 export default {
     name: 'upload',
     data() {
         return {
-
+            needUploads: [],
+            fileList: []
         }
     },
     store: vstore,
     mounted() {
         this.fetchNeedFiles().then(r => {
-            this.needUploads = r.rows
-            debugger
-            weui.uploader('#uploader0', {
+            let ids = ''
+            for (let index = 0; index < r.rows.length; index++) {
+                const item = r.rows[index]
+                const {id} = item
+                ids += id + ','
+                this.upload(index, id)
+            }
+            this.$store.state.fileIds = ids
+        })
+    },
+    // computed: {
+    //     ...mapState(['needUploads'])
+    // },
+    methods: {
+        ...mapMutations(['fetchNeedFiles']),
+        next() {
+            this.$router.push({
+                path: '/user'
+            })
+        },
+        upload(index, id) {
+            weui.uploader('#uploader'+index, {
                 url: `${baseURL}zmwjlx/uploadFile`,
                 auto: false,
                 type: 'file',
@@ -69,38 +89,15 @@ export default {
                 onBeforeSend(data, headers) {
                     console.log(this);
                     $.extend(data, { 
-                        zmwjlxId: 3,
+                        zmwjlxId: id,
                         token: store.get('token')
-                        // token: 'koyoAKIKLqG0jbRWeG+4DOeBD2BZQIBRKYhHGinq929DQJCjHPdLin57jlrJcaJo0n6oLJjrfZ69xDYLiR6RIJTejUEhBhpwF1RyClupDPHMjZRiaVqFKZBjdo/BkYj3GkANCL0dgUPSXD8bL0A3i3kLRTXJ3i0n7tbNJiQtlwQ=' 
                     }); // 可以扩展此对象来控制上传参数
-                    debugger
                 },
                 onSuccess(r) {
                     console.log('success', r)
                     this.fileList = r.rows
                 }
             })
-        })
-    },
-    // computed: {
-    //     ...mapState(['needUploads'])
-    // },
-    methods: {
-        ...mapMutations(['fetchNeedFiles']),
-        next() {
-            this.$router.push({
-                path: '/user'
-            })
-        },
-        upload(e) {
-            // const files = e.target.files
-            // const url = window.URL || window.webkitURL
-            // const src = url.createObjectURL(file)
-            // request({
-            //     url: api.uploadFile
-            // }).then(r => {
-
-            // })
         },
         fetchNeedFiles(state) {
             return request({
@@ -110,7 +107,7 @@ export default {
                 }
             })
             .then(r => {
-                state.needUploads = r.rows
+                this.needUploads = r.rows
                 return r
             })
         },

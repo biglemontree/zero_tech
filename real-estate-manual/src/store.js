@@ -11,7 +11,8 @@ export default new Vuex.Store({
         onlineData: {
             // DJLX, SQLX, todo
         },
-        needUploads: []
+        needUploads: [],
+        fileIds: ''
     },
     mutations: {
         setOnlineData(state, data) {

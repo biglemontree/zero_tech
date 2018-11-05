@@ -11,20 +11,25 @@
         <div class="weui-cells__title">登记类型选择</div>
         <div class="weui-cells">
             <!-- <div class="weui-cell__hd"><label for="" class="weui-label">变更登记</label></div> -->
-            <div class="weui-cell__bd">
-                <select class="weui-select" name="DJLX" v-model="DJLX">
-                    <option :selected="signTypes[0].name" @click="fetchYwInfoList" v-for="(item, index) in signTypes" :key="index" :value="item">{{item.name}}</option>
-                </select>
+            <div class="weui-cell weui-cell_select">
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="DJLX" v-model="DJLX">
+                        <option :selected="signTypes[0].name" @click="fetchYwInfoList" v-for="(item, index) in signTypes" :key="index" :value="item">{{item.name}}</option>
+                    </select>
+                </div>
             </div>
         </div>
        <div class="weui-cells__title">详细类型</div>
         <div class="weui-cells">
-            <!-- <div class="weui-cell__hd"><label for="" class="weui-label">变更登记</label></div> -->
-            <div class="weui-cell__bd">
-                <select class="weui-select" name="todo" v-model="todo">
-                    <option :selected="ywInfoList[0].name" v-for="(item, index) in ywInfoList" :key="index" :value="item.id">{{item.name}}</option>
-                </select>
+            <div class="weui-cell weui-cell_select">
+                <!-- <div class="weui-cell__hd"><label for="" class="weui-label">变更登记</label></div> -->
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="todo" v-model="todo">
+                        <option :selected="ywInfoList[0].name" v-for="(item, index) in ywInfoList" :key="index" :value="item.id">{{item.name}}</option>
+                    </select>
+                </div>
             </div>
+
         </div>
        <div class="weui-cells__title">申请类型选择</div>
         <div class="weui-cells weui-cells_checkbox" name="SQLX">
@@ -130,8 +135,8 @@ export default {
             DJLX, SQLX, todo
         })
         this.$router.push({
-            path: '/upload',
-            // path: '/user',
+            // path: '/upload',
+            path: '/user',
         })
     }
   },

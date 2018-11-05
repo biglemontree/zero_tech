@@ -20,6 +20,7 @@
                         <option :selected="ywTypes[0].name" @click="fetchDate" v-for="(item, index) in ywTypes" :key="index" :value="item.name">{{item.name}}</option>
                     </select>
                 </div>
+                <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div>
             </div>
         </div>
 
@@ -33,8 +34,9 @@
                         <option :selected="availDate[0].createTime" @click="fetchDate" v-for="(item, index) in availDate" :key="index" :value="item.createTime">{{item.createTime}}</option>
                     </select>
                 </div>
+                <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div>
             </div>
-            <div class="weui-cell ">
+            <div class="weui-cell weui-cell_select">
                 <div class="weui-cell__hd"><label class="weui-label">预约时段</label></div>
                 <div class="weui-cell__bd">
                     <div v-if="isDeail">{{detail.YYSJD}}</div>
@@ -42,6 +44,7 @@
                         <option :selected="availTime[0].SJD" v-for="(item, index) in availTime" :key="index" :value="item.SJD">{{item.SJD}}</option>
                     </select>
                 </div>
+                <!-- <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div> -->
             </div>
         </div>
         <div class="weui-cells__title"></div>
@@ -76,7 +79,7 @@
             <a href="javascript:;" class="weui-btn weui-btn_primary" v-if="!isDeail" @click="save">下一步</a>
         </div>
     </div>
-    <Feedback v-else>
+    <Feedback v-else >
         <div slot="tip-info">
             <i class="weui-icon-success weui-icon_msg"></i>
             <h3 class="icon-box__title">操作成功</h3>
@@ -145,6 +148,9 @@ export default {
   },
   methods: {
       ...mapMutations(['fetchUserInfo']),
+      navBack() {
+
+      },
     fetchAvaiTime() {
         request({
             url: api.getTime,

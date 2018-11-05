@@ -3,6 +3,7 @@ import store from 'store'
 // import appStore from '@/store'
 
 const baseURL = 'http://118.89.65.103:8080/jlbdc_gzh/'
+const imgURL = 'http://118.89.65.103:8080/rs/'
 const service = axios.create({
     baseURL,
     method: 'post',
@@ -29,7 +30,7 @@ service.interceptors.response.use(
     response => {
         console.log('response: ', response.data)
         const { data } = response
-        const code = data.msg.code
+        const {code} = data.msg
         // Do something
         if (+code === 1) {
             return data
@@ -50,37 +51,38 @@ service.interceptors.response.use(
  */
 function request(params, ignoreError) {
     // appStore.setLoading(true)
-    weui.toast('加载中', {
-        duration: 500
-    })
+    const loading = weui.loading('加载中')
     return service(params).then(res => {
+        loading.hide()
         // appStore.updateTimer().setLoading(false)
         return res
     }).catch(res => {
         console.log('request.error: ', res)
+        loading.hide()
+        const {code, msg} = res.msg
         // appStore.setLoading(false)
         // 网络异常等情况，拿到的是string类型的错误信息
         if (typeof res === 'string') {
             // 为兼容后端返回的数据，这里把res封装到message中
             const error = { message: res }
             if (ignoreError !== true) {
+                weui.alert(msg)
                 // appStore.setError(error)
             }
             return Promise.reject(error)
         }
 
-        const code = String(res.code)
-
         // 422 token失效
-        if (code === '422') {
+        if (+code === 422) {
             // appStore.setToken(null)
 
-            window.location = "/#/agree"
+            window.location = "/dist/#/agree"
         }
 
         // 接口如果需要在外边需要异常，需要设置ignoreError = true
         if (ignoreError !== true) {
             // appStore.setError(res)
+            weui.alert(msg)
         }
 
         return Promise.reject(res)
@@ -90,5 +92,6 @@ function request(params, ignoreError) {
 // function
 export {
     baseURL,
+    imgURL
 }
 export default request

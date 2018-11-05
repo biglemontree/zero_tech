@@ -36,7 +36,7 @@
                     <label class="weui-label">验证码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="tel" v-model="code" placeholder="请输入验证码">
+                    <input class="weui-input error" type="tel" pattern="[0-9]*" v-model="code" placeholder="请输入验证码">
                 </div>
                 <div class="weui-cell__ft">
                     <a href="javascript:;" @click="sendCode" class="weui-vcode-btn">获取验证码</a>
@@ -103,7 +103,7 @@ export default {
         }).then(r => {
             store.set('token', r.data)
             this.$router.push({
-                path: '/register',
+                path: '/entry',
             })
         })
     }

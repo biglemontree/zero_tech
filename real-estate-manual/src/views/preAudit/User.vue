@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="weui-btn-area">
-            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="save">tijiao</a>
+            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="save">提交</a>
         </div>
     </div>
         
@@ -65,9 +65,9 @@ export default {
   name: "user",
   data() {
     return {
-        QLRXM: vstore.state.userInfo.userName,
+        QLRXM: userInfo.userName,
         QLRZJLX: '',
-        QLRZJH: vstore.state.userInfo.cardId,
+        QLRZJH: userInfo.cardId,
         QLRYB: '',
         QLRTXDZ: '',
     };
@@ -78,7 +78,7 @@ export default {
 
   },
   computed: {
-      ...mapState(['userInfo', 'onlineData'])
+      ...mapState(['userInfo', 'onlineData', 'fileIds'])
     //   this.$store.state
   },
   methods: {
@@ -102,15 +102,16 @@ export default {
         }).then(r => this.availDate = r.rows);
     },
     save() {
-        const {DJLX} = this.onlineData
+        const {DJLX, todo} = this.onlineData
         const {QLRXM, QLRZJLX, QLRZJH, QLRYB,
-QLRTXDZ} = this
+        QLRTXDZ} = this
         request({
             url: api.saveSqb,
             data: {
                 QLRXM, QLRZJLX, QLRZJH, QLRYB,
                 QLRTXDZ,
-                YWLX: DJLX.name
+                ZMWJID: this.fileIds,
+                YWLX: todo.name
             }
         }).then(() => weui.totast('success'))
     },
