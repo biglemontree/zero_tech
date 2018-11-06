@@ -2,6 +2,7 @@ import axios from 'axios'
 import store from 'store'
 // import appStore from '@/store'
 
+// const baseURL = 'http://2121k4a180.iask.in:11898/jlbdc_gzh/'
 const baseURL = 'http://118.89.65.103:8080/jlbdc_gzh/'
 const imgURL = 'http://118.89.65.103:8080/rs/'
 const service = axios.create({
@@ -35,7 +36,7 @@ service.interceptors.response.use(
         if (+code === 1) {
             return data
         } else if(code === 422) {
-            window.location = "/#/agree"
+            // window.location = "/#/agree"
         }
 
         return Promise.reject(data)

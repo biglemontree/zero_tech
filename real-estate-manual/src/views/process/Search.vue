@@ -1,36 +1,41 @@
 <template>
-    <div >
-        <div >
-            <img class="top" src="../../assets/logo.png" alt="" srcset="">
-        </div>
-        <div class="weui-cells__title">请输入您的受理编号</div>
-        <div class="weui-cells weui-cells_form">
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">受理编号</label></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input" v-model="SLID" type="text" emptyTips="请输入受理编号" placeholder="请输入受理编号"/>
+    <div>
+        <div v-if="!isSearched">
+            <div >
+                <img class="top" src="../../assets/logo.png" alt="" srcset="">
+            </div>
+            <div class="weui-cells__title">请输入您的受理编号</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">受理编号</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" v-model="SLID" type="text" emptyTips="请输入受理编号" placeholder="请输入受理编号"/>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="weui-btn-area">
-            <button class="weui-btn weui-btn_primary" id="showTooltips" @click="search">确定</button>
+            <div class="weui-btn-area">
+                <button class="weui-btn weui-btn_primary" id="showTooltips" @click="search">确定</button>
+            </div>
+        </div>
+        <div v-else>
+            <!-- <Feedback v-if="">
+                <div slot="tip-info">
+                    <i class="weui-icon-success weui-icon_msg"></i>
+                    <h3 class="icon-box__title">已完结</h3>
+                    <p class="icon-box__desc c-666">受理编号{{result.SLID}}</p>
+                </div>
+            </Feedback> -->
+            <Feedback>
+                <div slot="tip-info">
+                    <i v-if="result.status === 1" class="weui-icon-success weui-icon_msg"></i>
+                    <i v-else class="weui-icon-warn weui-icon_msg-primary"></i>
+                    <h3 class="icon-box__title">{{result.SZZT}}</h3>
+                    <p class="icon-box__desc c-666">受理编号{{result.SLID}}</p>
+                </div>
+            </Feedback>
         </div>
     </div>
-    <!-- <Feedback v-if="">
-        <div slot="tip-info">
-            <i class="weui-icon-success weui-icon_msg"></i>
-            <h3 class="icon-box__title">已完结</h3>
-            <p class="icon-box__desc c-666">受理编号</p>
-        </div>
-    </Feedback>
-    <Feedback v-if="status">
-        <div slot="tip-info">
-            <i class="weui-icon-warn weui-icon_msg-primary"></i>
-            <h3 class="icon-box__title">受理中</h3>
-            <p class="icon-box__desc c-666">受理编号</p>
-        </div>
-    </Feedback> -->
 </template>
 <script>
 import Feedback from "../common/Feedback"
@@ -44,12 +49,14 @@ export default {
     name: 'agree',
     data() {
         return {
-            SLID: ''
+            isSearched: false,
+            SLID: '',
+            result: {}
         }
     },
     store: vstore,
     mounted() {
-        this.fetchUserInfo()
+        // this.fetchUserInfo()
     },
     methods: {
         ...mapMutations(['fetchUserInfo']),
@@ -59,6 +66,9 @@ export default {
                 data: {
                     SLID: this.SLID
                 }
+            }).then((r) => {
+                this.isSearched = true
+                this.result = r.data
             })
         }
     },

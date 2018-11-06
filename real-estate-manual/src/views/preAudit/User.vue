@@ -15,7 +15,7 @@
                     <label class="weui-label">证件种类</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="QLRZJLX" v-model="QLRZJLX">
+                    <select class="weui-select" name="QLRZJLX" v-model="QLRZJLX" style="paddingLeft: 0px;">
                         <option selected="身份证" value="身份证">身份证</option>
                         <option value="营业执照">营业执照</option>
                     </select>
@@ -65,9 +65,9 @@ export default {
   name: "user",
   data() {
     return {
-        QLRXM: userInfo.userName,
-        QLRZJLX: '',
-        QLRZJH: userInfo.cardId,
+        QLRXM: vstore.state.userInfo.userName,
+        QLRZJLX: '身份证',
+        QLRZJH: vstore.state.userInfo.cardId,
         QLRYB: '',
         QLRTXDZ: '',
     };
@@ -105,15 +105,23 @@ export default {
         const {DJLX, todo} = this.onlineData
         const {QLRXM, QLRZJLX, QLRZJH, QLRYB,
         QLRTXDZ} = this
+        const that = this
         request({
             url: api.saveSqb,
             data: {
                 QLRXM, QLRZJLX, QLRZJH, QLRYB,
                 QLRTXDZ,
                 ZMWJID: this.fileIds,
-                YWLX: todo.name
+                YWLX: todo.id
             }
-        }).then(() => weui.totast('success'))
+        }).then(() => weui.toast('提交成功', {
+            duration: 1000,
+            callback() {
+                that.$router.push({
+                    path: '/preAudit'
+                })
+            }
+        }))
     },
   },
 };

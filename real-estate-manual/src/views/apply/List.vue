@@ -34,7 +34,7 @@ export default {
             request({
                 url: api.getAllApplys,
                 data: {
-                    yyId: 'df'
+                    // yyId: 'df'
                 }
             }).then(r => {
                 this.rows = r.rows

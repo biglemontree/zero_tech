@@ -1,6 +1,8 @@
 module.exports = {
     // 修改的配置
-    baseUrl: '/dist/',
+    baseUrl: process.env.NODE_ENV === 'production'
+        ? '/dist/'
+        : '/',
     devServer: {
         // host: 'localhost',
         // port: 8080,

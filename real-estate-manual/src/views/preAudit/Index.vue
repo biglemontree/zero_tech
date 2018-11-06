@@ -25,7 +25,7 @@
                 <!-- <div class="weui-cell__hd"><label for="" class="weui-label">变更登记</label></div> -->
                 <div class="weui-cell__bd">
                     <select class="weui-select" name="todo" v-model="todo">
-                        <option :selected="ywInfoList[0].name" v-for="(item, index) in ywInfoList" :key="index" :value="item.id">{{item.name}}</option>
+                        <option :selected="ywInfoList[0].name" v-for="(item, index) in ywInfoList" :key="index" :value="item">{{item.name}}</option>
                     </select>
                 </div>
             </div>
@@ -135,8 +135,8 @@ export default {
             DJLX, SQLX, todo
         })
         this.$router.push({
-            // path: '/upload',
-            path: '/user',
+            path: '/upload',
+            // path: '/user',
         })
     }
   },
