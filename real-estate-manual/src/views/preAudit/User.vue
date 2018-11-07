@@ -65,16 +65,18 @@ export default {
   name: "user",
   data() {
     return {
-        QLRXM: vstore.state.userInfo.userName,
+        QLRXM: this.$store.state.userInfo.userName,
         QLRZJLX: '身份证',
-        QLRZJH: vstore.state.userInfo.cardId,
+        QLRZJH: this.$store.state.userInfo.cardId,
         QLRYB: '',
         QLRTXDZ: '',
     };
   },
   store: vstore,
   mounted() {
-    this.fetchUserInfo()
+    this.fetchUserInfo().then(r => {
+
+    })
 
   },
   computed: {

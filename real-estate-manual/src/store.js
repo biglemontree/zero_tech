@@ -37,6 +37,10 @@ export default new Vuex.Store({
             //     return r
             // })
         },
+        addIds(state, ids) {
+            state.fileIds += ids
+            debugger
+        }
     },
     actions: {
 

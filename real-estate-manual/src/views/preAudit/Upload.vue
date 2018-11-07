@@ -44,25 +44,24 @@ import { mapState, mapMutations } from 'vuex'
 import request,{baseURL, imgURL} from "../../utils/request";
 import api from "../../constants/api";
 
+let fieldids = ''
 export default {
     name: 'upload',
     data() {
         return {
             needUploads: [],
-            fileList: []
+            fileList: [],
+            ids: ''
         }
     },
     store: vstore,
     mounted() {
         this.fetchNeedFiles().then(r => {
-            let ids = ''
             for (let index = 0; index < r.rows.length; index++) {
                 const item = r.rows[index]
                 const {id} = item
-                ids += id + ','
                 this.upload(index, id)
             }
-            this.$store.state.fileIds = ids
         })
     },
     // computed: {
@@ -71,11 +70,13 @@ export default {
     methods: {
         ...mapMutations(['fetchNeedFiles']),
         next() {
+            this.$store.state.fileIds = fieldids
             this.$router.push({
                 path: '/user'
             })
         },
         upload(index, id) {
+            let ids = ''
             weui.uploader('#uploader'+index, {
                 url: `${baseURL}zmwjlx/uploadFile`,
                 auto: false,
@@ -98,7 +99,10 @@ export default {
                 },
                 onSuccess(r) {
                     console.log('success', r)
+                    const {rows} = r
                     this.fileList = r.rows
+                    const ids = rows.reduce((total, item) => item.id+','+ total, '')
+                    fieldids = fieldids + ids
                 }
             })
         },
