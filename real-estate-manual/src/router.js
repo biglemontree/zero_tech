@@ -30,31 +30,31 @@ export default new Router({
       path: '/agree',
       name: 'agree',
       component: Agree,
-      meta: { title: '在线预约协议'}
+        meta: { title: '协议阅读'}
     },
     {
       path: '/verify',
       name: 'verify',
       component: Verify,
-      meta: { title: '在线预约资料填写'}
+        meta: { title: '实名认证'}
     },
     {
       path: '/register',
       name: 'register',
       component: Register,
-      meta: { title: '在线预约资料填写'}
+      meta: { title: '在线预约'}
     },
     {
       path: '/register/:id',
       name: 'register/:id',
       component: Register,
-      meta: { title: '在线预约资料填写'}
+        meta: { title: '预约详情'}
     },
     {
       path: '/preAudit',
       name: 'preAudit',
       component: PreAudit,
-      meta: { title: '申请登记事由'}
+        meta: { title: '网上预审'}
     },
     {
       path: '/user',
@@ -77,6 +77,7 @@ export default new Router({
     {
       path: '/list',
       name: 'list',
+        meta: { title: '我的预约' },
       // route level code-splitting
       // this generates a separate chunk (list.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -85,6 +86,7 @@ export default new Router({
     {
       path: '/search',
       name: 'search',
+        meta: { title: '进度查询' },
       component: () => import(/* webpackChunkName: "search" */ './views/process/Search.vue')
     }
   ]

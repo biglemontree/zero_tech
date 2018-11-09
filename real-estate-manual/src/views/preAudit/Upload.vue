@@ -49,24 +49,33 @@ export default {
     name: 'upload',
     data() {
         return {
-            needUploads: [],
-            fileList: [],
+            // needUploads: [],
+            // fileList: [],
             ids: ''
         }
     },
     store: vstore,
-    mounted() {
-        this.fetchNeedFiles().then(r => {
-            for (let index = 0; index < r.rows.length; index++) {
-                const item = r.rows[index]
-                const {id} = item
-                this.upload(index, id)
-            }
-        })
+    async mounted() {
+        await this.fetchNeedFiles()
+        const {needUploads} = this
+        debugger
+        // .then(r => {
+        //     for (let index = 0; index < r.rows.length; index++) {
+        //         const item = r.rows[index]
+        //         const {id} = item
+        //         this.upload(index, id).then(r => {
+        //             const {rows} = r
+        //             this.$store.state.fileList = rows
+        //             // this.$store.state.fileList.push()
+        //             const ids = rows.reduce((total, item) => item.id+','+ total, '')
+        //             debugger
+        //         })
+        //     }
+        // })
     },
-    // computed: {
-    //     ...mapState(['needUploads'])
-    // },
+    computed: {
+        ...mapState(['needUploads', 'fileList'])
+    },
     methods: {
         ...mapMutations(['fetchNeedFiles']),
         next() {
@@ -76,48 +85,51 @@ export default {
             })
         },
         upload(index, id) {
-            let ids = ''
-            weui.uploader('#uploader'+index, {
-                url: `${baseURL}zmwjlx/uploadFile`,
-                auto: false,
-                type: 'file',
-                fileVal: 'file',
-                compress: {
-                    width: 1600,
-                    height: 1600,
-                    quality: .8
-                },
-                onQueued() {
-                    this.upload()
-                },
-                onBeforeSend(data, headers) {
-                    console.log(this);
-                    $.extend(data, { 
-                        zmwjlxId: id,
-                        token: store.get('token')
-                    }); // 可以扩展此对象来控制上传参数
-                },
-                onSuccess(r) {
-                    console.log('success', r)
-                    const {rows} = r
-                    this.fileList = r.rows
-                    const ids = rows.reduce((total, item) => item.id+','+ total, '')
-                    fieldids = fieldids + ids
-                }
+            return new Promise((resolve, reject) => {
+                let ids = ''
+                weui.uploader('#uploader'+index, {
+                    url: `${baseURL}zmwjlx/uploadFile`,
+                    auto: false,
+                    type: 'file',
+                    fileVal: 'file',
+                    compress: {
+                        width: 1600,
+                        height: 1600,
+                        quality: .8
+                    },
+                    onQueued() {
+                        this.upload()
+                    },
+                    onBeforeSend(data, headers) {
+                        console.log(this);
+                        $.extend(data, { 
+                            zmwjlxId: id,
+                            token: store.get('token')
+                        }); // 可以扩展此对象来控制上传参数
+                    },
+                    onSuccess: resolve
+                    // (r) {
+                    //     console.log('success', r)
+                    //     const {rows} = r
+                    //     this.fileList = r.rows
+                    //     const ids = rows.reduce((total, item) => item.id+','+ total, '')
+                    //     fieldids = fieldids + ids
+                    // }
+                })
             })
         },
-        fetchNeedFiles(state) {
-            return request({
-                url: api.fileList,
-                data: {
-                    YWID: this.$store.state.onlineData.todo.id
-                }
-            })
-            .then(r => {
-                this.needUploads = r.rows
-                return r
-            })
-        },
+        // fetchNeedFiles(state) {
+        //     return request({
+        //         url: api.fileList,
+        //         data: {
+        //             YWID: this.$store.state.onlineData.todo.id
+        //         }
+        //     })
+        //     .then(r => {
+        //         this.needUploads = r.rows
+        //         return r
+        //     })
+        // },
         
     }
 }

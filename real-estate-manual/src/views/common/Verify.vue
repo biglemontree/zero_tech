@@ -1,5 +1,5 @@
 <template lang="html">
-    <div >
+    <div id="form">
         <div class="weui-cells__title">身份信息</div>
         <div class="weui-cells">
             <div class="weui-cell ">
@@ -7,7 +7,7 @@
                     <label class="weui-label">姓名</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" v-model="name" placeholder="请输入完整姓名">
+                    <input class="weui-input" type="text" v-model="name" required emptyTips="请输入姓名" notMatchTips="请输入姓名" placeholder="请输入完整姓名">
                 </div>
             </div>
             <div class="weui-cell ">
@@ -15,7 +15,7 @@
                     <label class="weui-label">身份证号</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" v-model="IDCardNum" placeholder="请输入身份证号">
+                    <input class="weui-input" type="text" v-model="IDCardNum" required pattern="REG_IDNUM" placeholder="输入你的身份证号码" emptyTips="请输入身份证号码" notMatchTips="请输入正确的身份证号码">
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <label class="weui-label">手机号码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="number" v-model="phone" placeholder="请输入手机号">
+                    <input class="weui-input" type="tel" required pattern="[0-9]{11}" v-model="phone" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号" placeholder="请输入手机号">
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                     <label class="weui-label">验证码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input error" type="tel" pattern="[0-9]*" v-model="code" placeholder="请输入验证码">
+                    <input class="weui-input" type="number" required v-model="code" emptyTips="请输入验证码" notMatchTips="请输入验证码" placeholder="请输入验证码">
                 </div>
                 <div class="weui-cell__ft">
                     <a href="javascript:;" @click="sendCode" class="weui-vcode-btn">获取验证码</a>
@@ -72,7 +72,11 @@ export default {
     };
   },
   mounted() {
-    
+    weui.form.checkIfBlur('#form', {
+        regexp: {
+            IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
+        }
+    })
   },
   methods: {
     sendCode() {
@@ -91,21 +95,31 @@ export default {
         return x
     },
     checkUser() {
-        const {phone,IDCardNum,code,name} = this
-          request({
-            url: api.CheckUser,
-            data: {
-                phone,
-                IDCardNum,
-                code,
-                name
+        weui.form.validate('#form', error => {
+            if (!error) {
+                const {phone,IDCardNum,code,name} = this
+                request({
+                    url: api.CheckUser,
+                    data: {
+                        phone,
+                        IDCardNum,
+                        code,
+                        name
+                    }
+                }).then(r => {
+                    store.set('token', r.data)
+                    this.$router.push({
+                        path: '/entry',
+                    })
+                })
             }
-        }).then(r => {
-            store.set('token', r.data)
-            this.$router.push({
-                path: '/entry',
-            })
+            // return true
+        }, {
+            regexp: {
+                IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
+            }
         })
+        
     }
   },
   components: {

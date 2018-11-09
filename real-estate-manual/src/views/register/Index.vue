@@ -1,6 +1,6 @@
 <template lang="html">
     <div v-if="!isSuccess">
-        <div class="weui-cells__title">请选择您不动产登记受理地点</div>
+        <div class="weui-cells__title" v-if="!isDeail">请选择您不动产登记受理地点</div>
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">受理点</label></div>
@@ -10,17 +10,17 @@
                 </div>
             </div>
         </div>
-        <div class="weui-cells__title">请选择你办理业务的类型</div>
+        <div class="weui-cells__title" v-if="!isDeail">请选择你办理业务的类型</div>
         <div class="weui-cells">
             <div class="weui-cell ">
                 <div class="weui-cell__hd"><label class="weui-label">预约类型</label></div>
                 <div class="weui-cell__bd">
                     <div v-if="isDeail">{{detail.YWName}}</div>
-                    <select v-else class="weui-select" name="YWLX" v-model="YWLX">
+                    <select v-else class="weui-select" name="YWLX" v-model="YWLX" required tips="请输入手机号" notMatchTips="请输入正确的手机号">
                         <option :selected="ywTypes[0].name" @click="fetchDate" v-for="(item, index) in ywTypes" :key="index" :value="item.name">{{item.name}}</option>
                     </select>
                 </div>
-                <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div>
+                <div v-if="!isDeail" class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div>
             </div>
         </div>
 
@@ -34,17 +34,17 @@
                         <option :selected="availDate[0].createTime" @click="fetchDate" v-for="(item, index) in availDate" :key="index" :value="item.createTime">{{item.createTime}}</option>
                     </select>
                 </div>
-                <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div>
+                <div v-if="!isDeail" class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div>
             </div>
-            <div class="weui-cell weui-cell_select">
+            <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">预约时段</label></div>
                 <div class="weui-cell__bd">
                     <div v-if="isDeail">{{detail.YYSJD}}</div>
                     <select v-else class="weui-select" name="YYSJD" v-model="YYSJD">
-                        <option :selected="availTime[0].SJD" v-for="(item, index) in availTime" :key="index" :value="item.SJD">{{item.SJD}}</option>
+                        <option :selected="availTime[0].SJD" v-for="(item, index) in availTime" :key="index" :value="item.SJD">{{item.SJD}}(可预约:{{item.count}}人)</option>
                     </select>
                 </div>
-                <!-- <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div> -->
+                <div v-if="!isDeail" class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div>
             </div>
         </div>
         <div class="weui-cells__title"></div>
@@ -171,35 +171,49 @@ export default {
     },
     save() {
         const {userName, phone, cardId} = this.userInfo
+        if (!this.YWLX) {
+            weui.toast('请选择预约类型', {duration: 1000})
+            return
+        }
         request({
             url: api.onlineApply,
             data: {
                 YYSJD: this.YYSJD, // "YYSJD": 预约时间段,
                 YYRQ: this.YYRQ, // "YYRQ":预约日期,
                 "CARD_ID": cardId, // 身份证号,
-                // "FWSZXZQY":房屋所在行政区域,
                 YWLX: this.YWLX, // 预约业务类型,
-                // "BDCDZ":不动产地址,
-                // "YYYWID": 预约业务类型Id,
-                // "YYYWName":预约业务名(小分类)
-                // "YWName": '',// 预约业务类型名（大分类）,
                 "name": userName, // 预约人姓名,
                 "BLJG": '蕉岭县', // 办理机构,
             }
         }).then(() => this.isSuccess = true)
     },
     cancel() {
+        const that = this
+        weui.dialog({
+        title: '提示',
+        content: '确定取消当前预约吗',
+        className: 'custom-classname',
+        buttons: [{
+            label: '取消',
+            type: 'default',
+        }, {
+            label: '确定',
+            type: 'primary',
+            onClick: function () { that.postCancel() }
+        }]
+    })
+    },
+    postCancel() {
         const {id} = this.$route.params
         request({
             url: api.cancelApply,
             data: {yyId: id}
         }).then(() => {
-            weui.toast('取消成功')
+            weui.toast('取消成功', {duration: 1000})
             this.$router.push({
                 path: '/list',
             })
         })
-            
     }
   },
   components: {

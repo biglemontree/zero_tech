@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import store from 'store'
 import vstore from '@/store.js'
 import request from "../../utils/request";
@@ -74,9 +74,15 @@ export default {
   },
   store: vstore,
   mounted() {
-    this.fetchUserInfo().then(r => {
-
-    })
+    // this.actionUserInfo().then(r => {
+    //     debugger
+    //     const {userName, cardId} = r.data
+    //     this.QLRXM = userName
+    //     this.QLRZJH = cardId
+    // })
+    const {userName, cardId} = this.$store.state.userInfo
+    this.QLRXM = userName
+    this.QLRZJH = cardId
 
   },
   computed: {
@@ -85,6 +91,7 @@ export default {
   },
   methods: {
       ...mapMutations(['fetchUserInfo']),
+      ...mapActions(['actionUserInfo']),
     fetchAvaiTime() {
         request({
             url: api.getTime,

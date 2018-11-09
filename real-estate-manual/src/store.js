@@ -12,6 +12,7 @@ export default new Vuex.Store({
             // DJLX, SQLX, todo
         },
         needUploads: [],
+        fileList: [],
         fileIds: ''
     },
     mutations: {
@@ -32,10 +33,10 @@ export default new Vuex.Store({
                     YWID: state.onlineData.todo
                 }
             })
-            // .then(r => {
-            //     state.needUploads = r.rows
-            //     return r
-            // })
+            .then(r => {
+                state.needUploads = r.rows
+                return r
+            })
         },
         addIds(state, ids) {
             state.fileIds += ids
@@ -43,6 +44,8 @@ export default new Vuex.Store({
         }
     },
     actions: {
-
+        actionUserInfo(context) {
+            context.commit('fetchUserInfo')
+        }
     }
 })
