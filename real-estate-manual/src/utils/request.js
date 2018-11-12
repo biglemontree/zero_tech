@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from 'store'
+import qs from 'qs'
 // import appStore from '@/store'
 
 // const baseURL = 'http://2121k4a180.iask.in:11898/jlbdc_gzh/'
@@ -27,6 +28,9 @@ service.interceptors.request.use(options => {
     return config
 }, error => Promise.reject(error))
 
+const hash = window.location.hash
+const url = "/#/agree?from=" + hash.slice(2)
+console.log(hash, url)
 service.interceptors.response.use(
     response => {
         console.log('response: ', response.data)
@@ -36,7 +40,8 @@ service.interceptors.response.use(
         if (+code === 1) {
             return data
         } else if(code === 422) {
-            // window.location = "/#/agree"
+            // console.log(url, 422, hash);
+            window.location.href = url
         }
 
         return Promise.reject(data)
@@ -77,7 +82,7 @@ function request(params, ignoreError) {
         if (+code === 422) {
             // appStore.setToken(null)
 
-            window.location = "/dist/#/agree"
+            window.location = url
         }
 
         // 接口如果需要在外边需要异常，需要设置ignoreError = true

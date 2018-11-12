@@ -108,8 +108,11 @@ export default {
                     }
                 }).then(r => {
                     store.set('token', r.data)
+                    const params = this.$route.query.from || 'entry'
+                    console.log('parms ', params)
+                    
                     this.$router.push({
-                        path: '/entry',
+                        path: '/' + params,
                     })
                 })
             }

@@ -133,10 +133,8 @@ export default {
     } else {
         this.fetchYwType()
         this.fetchDate()
-        // this.$store.dispatch('fetchUserInfo')
     }
-    this.fetchUserInfo()
-
+    this.$store.dispatch('actionUserInfo')
   },
   computed: {
       ...mapState(['userInfo'])
@@ -147,7 +145,6 @@ export default {
       }
   },
   methods: {
-      ...mapMutations(['fetchUserInfo']),
       navBack() {
 
       },

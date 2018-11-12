@@ -12,9 +12,10 @@
                         <div class="weui-uploader__bd">
                             <ul class="weui-uploader__files" id="uploaderFiles">
                                 
-                                <li v-for="(file, index) in fileList" :key="index" class="weui-uploader__file weui-uploader__file_status" :style="`background-image:url(${imgURL}/${file.url})`">
+                                <li v-for="(file, j) in fileList[index]" :key="j" class="weui-uploader__file weui-uploader__file_status" :style="`background-image:url(${imgURL}/${file.url})`">
                                     <div class="weui-uploader__file-content">
                                         <i class="weui-icon-warn"></i>
+                                        {{file.url}}
                                     </div>
                                 </li>
                                 <!-- <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
@@ -49,29 +50,33 @@ export default {
     name: 'upload',
     data() {
         return {
-            // needUploads: [],
+            imgURL,
             // fileList: [],
             ids: ''
         }
     },
     store: vstore,
-    async mounted() {
-        await this.fetchNeedFiles()
-        const {needUploads} = this
-        debugger
-        // .then(r => {
-        //     for (let index = 0; index < r.rows.length; index++) {
-        //         const item = r.rows[index]
-        //         const {id} = item
-        //         this.upload(index, id).then(r => {
-        //             const {rows} = r
-        //             this.$store.state.fileList = rows
-        //             // this.$store.state.fileList.push()
-        //             const ids = rows.reduce((total, item) => item.id+','+ total, '')
-        //             debugger
-        //         })
-        //     }
-        // })
+    mounted() {
+
+        this.$store.dispatch('actionNeedFiles').then(r => {
+            for (let index = 0; index < r.rows.length; index++) {
+                const item = r.rows[index]
+                const {id} = item
+                this.upload(index, id).then(r => {
+                    const {rows} = r
+                    const arr = this.$store.state.fileList[index]
+                    if (arr) {
+                        this.$store.state.fileList[index].push(rows)
+                    } else {
+                        this.$store.state.fileList[index] = []
+                        this.$store.state.fileList[index].push(rows)
+                        debugger
+                    }
+                    const ids = rows.reduce((total, item) => item.id+','+ total, '')
+                    // debugger
+                })
+            }
+        })
     },
     computed: {
         ...mapState(['needUploads', 'fileList'])
@@ -107,7 +112,10 @@ export default {
                             token: store.get('token')
                         }); // 可以扩展此对象来控制上传参数
                     },
-                    onSuccess: resolve
+                    onSuccess: resolve,
+                    onError() {
+                        return true
+                    }
                     // (r) {
                     //     console.log('success', r)
                     //     const {rows} = r
@@ -118,19 +126,6 @@ export default {
                 })
             })
         },
-        // fetchNeedFiles(state) {
-        //     return request({
-        //         url: api.fileList,
-        //         data: {
-        //             YWID: this.$store.state.onlineData.todo.id
-        //         }
-        //     })
-        //     .then(r => {
-        //         this.needUploads = r.rows
-        //         return r
-        //     })
-        // },
-        
     }
 }
 </script>

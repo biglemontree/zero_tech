@@ -62,8 +62,10 @@ export default {
                 weui.toast('请同意协议')
                 return
             }
+            const params = this.$route.query.from
+            console.log('agree ', params)
             this.$router.push({
-                path: '/verify'
+                path: '/verify?from='+ params
             })
         }
     }

@@ -74,20 +74,18 @@ export default {
   },
   store: vstore,
   mounted() {
-    // this.actionUserInfo().then(r => {
-    //     debugger
-    //     const {userName, cardId} = r.data
-    //     this.QLRXM = userName
-    //     this.QLRZJH = cardId
-    // })
-    const {userName, cardId} = this.$store.state.userInfo
-    this.QLRXM = userName
-    this.QLRZJH = cardId
+    this.actionUserInfo().then(r => {
+        const {userName, cardId} = r
+        this.QLRXM = userName
+        this.QLRZJH = cardId
+    })
+    // const {userName, cardId} = this.$store.state.userInfo
+    // this.QLRXM = userName
+    // this.QLRZJH = cardId
 
   },
   computed: {
       ...mapState(['userInfo', 'onlineData', 'fileIds'])
-    //   this.$store.state
   },
   methods: {
       ...mapMutations(['fetchUserInfo']),

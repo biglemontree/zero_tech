@@ -12,31 +12,22 @@ export default new Vuex.Store({
             // DJLX, SQLX, todo
         },
         needUploads: [],
-        fileList: [],
+        fileList: [], // 上传的图片列表
         fileIds: ''
     },
     mutations: {
         setOnlineData(state, data) {
             state.onlineData = data
         },
-        fetchUserInfo(state) {
-            return request({
-                url: api.fetchUserInfo
-            }).then(r => {
-                state.userInfo = r.data
-            })
+        fetchUserInfo(state, data) {
+            state.userInfo = data
         },
-        fetchNeedFiles(state) {
-            return request({
-                url: api.fileList,
-                data: {
-                    YWID: state.onlineData.todo
-                }
-            })
-            .then(r => {
-                state.needUploads = r.rows
-                return r
-            })
+        fetchNeedFiles(state, rows) {
+            state.needUploads = rows
+        },
+        setFileList(state, rows) {
+            // state.fileList += ids
+
         },
         addIds(state, ids) {
             state.fileIds += ids
@@ -45,7 +36,23 @@ export default new Vuex.Store({
     },
     actions: {
         actionUserInfo(context) {
-            context.commit('fetchUserInfo')
+            return request({
+                url: api.fetchUserInfo
+            }).then(r => {
+                context.commit('fetchUserInfo', r.data)
+                return r.data
+            })
+        },
+        actionNeedFiles(context) {
+            return request({
+                url: api.fileList,
+                data: {
+                    YWID: context.state.onlineData.todo.id
+                }
+            }).then(r => {
+                context.commit('fetchNeedFiles', r.rows)
+                return r
+            })
         }
     }
 })

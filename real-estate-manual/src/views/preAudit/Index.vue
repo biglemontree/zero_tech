@@ -92,7 +92,6 @@ export default {
     };
   },
   mounted() {
-    // this.fetchTdTypes()
     this.fetchSignTypes()
   },
   watch: {
