@@ -55,6 +55,7 @@ import axios from 'axios'
 import NodeRSA from "node-rsa";
 import qs from 'qs'
 import store from 'store'
+import vstore from '@/store.js'
 import request from "../../utils/request";
 import api from "../../constants/api";
 import consts from "../../constants/";
@@ -71,6 +72,7 @@ export default {
       isSuccess: true
     };
   },
+  store: vstore,
   mounted() {
     weui.form.checkIfBlur('#form', {
         regexp: {
@@ -108,11 +110,16 @@ export default {
                     }
                 }).then(r => {
                     store.set('token', r.data)
-                    const params = this.$route.query.from || 'entry'
+                    let params = this.$route.query.from
+                    if (!params) {
+                        params = 'entry'
+                    }
                     console.log('parms ', params)
-                    
+
                     this.$router.push({
-                        path: '/' + params,
+                        path: '/entry'
+                        // path: '/' + params,
+                        // path: store.get('from'),
                     })
                 })
             }
@@ -122,7 +129,6 @@ export default {
                 IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
             }
         })
-        
     }
   },
   components: {

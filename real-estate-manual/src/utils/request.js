@@ -29,7 +29,7 @@ service.interceptors.request.use(options => {
 }, error => Promise.reject(error))
 
 const hash = window.location.hash
-const url = "/#/agree?from=" + hash.slice(2)
+const url = "/dist/#/agree?from=" + hash.slice(2)
 console.log(hash, url)
 service.interceptors.response.use(
     response => {
@@ -41,7 +41,8 @@ service.interceptors.response.use(
             return data
         } else if(code === 422) {
             // console.log(url, 422, hash);
-            window.location.href = url
+            debugger
+            window.location = url
         }
 
         return Promise.reject(data)
@@ -79,11 +80,11 @@ function request(params, ignoreError) {
         }
 
         // 422 token失效
-        if (+code === 422) {
-            // appStore.setToken(null)
+        // if (+code === 422) {
+        //     // appStore.setToken(null)
 
-            window.location = url
-        }
+        //     window.location = url
+        // }
 
         // 接口如果需要在外边需要异常，需要设置ignoreError = true
         if (ignoreError !== true) {

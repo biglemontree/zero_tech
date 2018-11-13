@@ -1,5 +1,4 @@
 import Vue from 'vue'
-// import 'weui';
 import storage from 'store'
 import App from './App.vue'
 import router from './router'
@@ -14,6 +13,12 @@ router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
   if (to.meta.title) {
     document.title = to.meta.title
+  }
+  if (to.name==='agree') {
+    //   store.state.from = from
+    console.log(from)
+    
+      storage.set('from', from.path)
   }
   next()
 })

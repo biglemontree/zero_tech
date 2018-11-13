@@ -13,7 +13,8 @@ export default new Vuex.Store({
         },
         needUploads: [],
         fileList: [], // 上传的图片列表
-        fileIds: ''
+        fileIds: '',
+        from: {}
     },
     mutations: {
         setOnlineData(state, data) {

@@ -99,15 +99,13 @@ export default {
             this.fetchYwInfoList()
       }
   },
-  computed: {
-    //   ...mapState(['userInfo'])
-  },
   methods: {
       ...mapMutations(['setOnlineData']),
     fetchSignTypes() {
         request({
             url: api.getYwList
-        }).then(r => {
+        },true).then(r => {
+            debugger
             this.signTypes = r.rows
         })
     },
