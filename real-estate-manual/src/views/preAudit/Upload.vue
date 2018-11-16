@@ -70,16 +70,18 @@ export default {
                     } else {
                         this.$store.state.fileList[index] = []
                         this.$store.state.fileList[index].push(rows)
-                        debugger
                     }
                     const ids = rows.reduce((total, item) => item.id+','+ total, '')
-                    // debugger
+                    fieldids = fieldids + ids
                 })
             }
         })
     },
     computed: {
         ...mapState(['needUploads', 'fileList'])
+    },
+    destroyed() {
+        this.$store.state.fileList = []
     },
     methods: {
         ...mapMutations(['fetchNeedFiles']),
@@ -116,13 +118,6 @@ export default {
                     onError() {
                         return true
                     }
-                    // (r) {
-                    //     console.log('success', r)
-                    //     const {rows} = r
-                    //     this.fileList = r.rows
-                    //     const ids = rows.reduce((total, item) => item.id+','+ total, '')
-                    //     fieldids = fieldids + ids
-                    // }
                 })
             })
         },

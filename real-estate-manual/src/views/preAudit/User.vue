@@ -65,9 +65,9 @@ export default {
   name: "user",
   data() {
     return {
-        QLRXM: this.$store.state.userInfo.userName,
+        QLRXM: '',
         QLRZJLX: '身份证',
-        QLRZJH: this.$store.state.userInfo.cardId,
+        QLRZJH: '',
         QLRYB: '',
         QLRTXDZ: '',
     };
@@ -79,9 +79,6 @@ export default {
         this.QLRXM = userName
         this.QLRZJH = cardId
     })
-    // const {userName, cardId} = this.$store.state.userInfo
-    // this.QLRXM = userName
-    // this.QLRZJH = cardId
 
   },
   computed: {
@@ -113,6 +110,10 @@ export default {
         const {QLRXM, QLRZJLX, QLRZJH, QLRYB,
         QLRTXDZ} = this
         const that = this
+        if (QLRYB.length !== 6) {
+            weui.toast('请填写正确的邮编')
+            return
+        }
         request({
             url: api.saveSqb,
             data: {

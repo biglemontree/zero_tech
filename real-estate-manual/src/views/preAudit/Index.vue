@@ -105,7 +105,6 @@ export default {
         request({
             url: api.getYwList
         },true).then(r => {
-            debugger
             this.signTypes = r.rows
         })
     },
