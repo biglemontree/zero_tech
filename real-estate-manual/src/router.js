@@ -88,6 +88,12 @@ export default new Router({
       name: 'search',
         meta: { title: '进度查询' },
       component: () => import(/* webpackChunkName: "search" */ './views/process/Search.vue')
-    }
+    },
+      {
+          path: '/notice-list',
+          name: 'notice-list',
+          meta: { title: '通知公告' },
+          component: () => import(/* webpackChunkName: "search" */ './views/notice/Index.vue')
+      },
   ]
 })

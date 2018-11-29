@@ -113,17 +113,6 @@ export default {
         isSuccess: true
     };
   },
-  mounted() {
-    //   request({
-    //         url: api.CheckUser,
-    //         data: {
-    //             phone: 18122059359,
-    //             IDCardNum: '4302415478441547',
-    //             code: '846945',
-    //             name: '汤汤'
-    //         }
-    //     })
-  },
 };
 </script>
 

@@ -40,7 +40,6 @@ service.interceptors.response.use(
         if (+code === 1) {
             return data
         } else if(code === 422) {
-            // console.log(url, 422, hash);
             debugger
             window.location = url
         }
@@ -57,11 +56,9 @@ service.interceptors.response.use(
  * @return {Promise}             返回一个Promise对象
  */
 function request(params, ignoreError) {
-    // appStore.setLoading(true)
     const loading = weui.loading('加载中')
     return service(params).then(res => {
         loading.hide()
-        // appStore.updateTimer().setLoading(false)
         return res
     }).catch(res => {
         console.log('request.error: ', res)
@@ -72,7 +69,7 @@ function request(params, ignoreError) {
         if (typeof res === 'string') {
             // 为兼容后端返回的数据，这里把res封装到message中
             const error = { message: res }
-            if (ignoreError !== true) {
+            if (ignoreError !== true && code !== 422) {
                 weui.alert(msg)
                 // appStore.setError(error)
             }
@@ -87,7 +84,7 @@ function request(params, ignoreError) {
         // }
 
         // 接口如果需要在外边需要异常，需要设置ignoreError = true
-        if (ignoreError !== true) {
+        if (ignoreError !== true && code !== 422) {
             // appStore.setError(res)
             weui.alert(msg)
         }

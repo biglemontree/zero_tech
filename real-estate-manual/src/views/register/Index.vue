@@ -111,9 +111,9 @@ export default {
         availDate: [],
         availTime: [],
         id: '',
-        "YYSJD": '',
-        "YWLX": '',// 预约业务类型,
-        "YWName": '',// 预约业务类型名,
+        YYSJD: '',
+        YWLX: '',// 预约业务类型,
+        YWName: '',// 预约业务类型名,
         YYRQ: '', // 日期
     };
   },
@@ -159,12 +159,12 @@ export default {
     fetchYwType() {
         request({
             url: api.getYwList,
-        }).then(r => this.ywTypes = r.rows);
+        },true).then(r => this.ywTypes = r.rows);
     },
     fetchDate() {
         request({
             url: api.getDate,
-        }).then(r => this.availDate = r.rows);
+        },true).then(r => this.availDate = r.rows);
     },
     save() {
         const {userName, phone, cardId} = this.userInfo
