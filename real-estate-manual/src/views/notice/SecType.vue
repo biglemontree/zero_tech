@@ -1,8 +1,9 @@
 <template>
     <div id="app" class="yo-scroll" v-cloak>
-        <Notice :dataList="dataList" :title="dataList[0].firtype" :link="'/notice-sec'">
+        <Notice :dataList="dataList" :title="sectype" :link="'notice-detail'">
 
         </Notice>
+        <!-- <my-dialog v-bind:message="message"></my-dialog> -->
     </div>
 
 </template>
@@ -23,13 +24,19 @@ export default {
                 "firtype": "891E3C9EBA7B423E8F1D28C500FF7406",
                 "KEY": "GSGG",
                 "DESCRIPTION": null
-            }
-            ]
+            },
+            ],
+            sectype: ''
         }
     },
     mounted() {
+        const {sectype} = this.$route.query
+        this.sectype = sectype
         request({
-            url: api.getTypes
+            url: api.getType,
+            data: {
+                sectype: sectype
+            }
         }).then(r => {
             this.dataList = r.rows
         })

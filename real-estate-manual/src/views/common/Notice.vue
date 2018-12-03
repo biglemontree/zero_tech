@@ -8,15 +8,17 @@
         </div>
         <div>
             <div class="weui-cells">
-                <a class="weui-cell weui-cell_access" :href="('GetTWList?twlabelid='+items.ID+'&title='+items.NAME)" v-for="(items,val,index) in dataList">
+                <router-link class="weui-cell weui-cell_access" :to="(link+'?id='+items.id+'&sectype='+items.sectype)" 
+                    v-for="(items,val,index) in dataList" 
+                    :key="index">
                     <div class="weui-cell__bd">
                         <img class="myIcon" src="../../assets/icon_022.png" />
-                        <p>{{items.NAME || items.content}}</p>
+                        <p>{{items.sectype || items.content}}</p>
                         <!-- <slot name="name"></slot> -->
                     </div>
                     <div class="weui-cell__ft">
                     </div>
-                </a>
+                </router-link>
                 <a v-if="dataList.length==0">
                     <div class="noMore">暂无数据</div>
                 </a>
@@ -35,7 +37,8 @@ export default {
     },
     props: {
         title: String,
-        dataList: Array
+        dataList: Array,
+        link: String
     }
 }
 </script>

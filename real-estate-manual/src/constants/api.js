@@ -22,4 +22,6 @@ export default {
     getAllApplys: '/xsyy/getAllXsyy', // 查询所有预约
     getApplyDetail: '/xsyy/getXsyy', // 查询所有预约
     cancelApply: '/xsyy/cancel', // cancel预约
-}
+    getTypes: '/type/getType', // 类型列表
+    getType: '/type/getTypeBySecType', //单个类型列表
+}    

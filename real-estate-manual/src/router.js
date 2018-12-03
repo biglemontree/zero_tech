@@ -15,11 +15,12 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //       component: Register
-    // },
+    {
+      path: '/',
+      name: 'home',
+      redirect: '/entry',
+        //   component: Register
+    },
     {
       path: '/entry',
       name: 'entry',
@@ -93,7 +94,19 @@ export default new Router({
           path: '/notice-list',
           name: 'notice-list',
           meta: { title: '通知公告' },
-          component: () => import(/* webpackChunkName: "search" */ './views/notice/Index.vue')
+          component: () => import(/* webpackChunkName: "notice-list" */ './views/notice/Index.vue')
+      },
+      {
+          path: '/notice-sec',
+          name: 'notice-sec',
+        //   meta: { title: '通知公告' },
+          component: () => import(/* webpackChunkName: "notice-sec" */ './views/notice/SecType.vue')
+      },
+      {
+          path: '/notice-detail',
+          name: 'notice-detail',
+        //   meta: { title: '通知公告' },
+          component: () => import(/* webpackChunkName: "notice-detail" */ './views/notice/detail.vue')
       },
   ]
 })
