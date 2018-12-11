@@ -18,28 +18,18 @@ export default {
         return {
             "dataList": [
                 {
-                    "sectype": "首次登记公告",
-                    "createTime": "2018-11-28 17:14:26",
-                    "id": "486435817634",
-                    "firtype": "通知公告",
+                    "sectype": "不动产登记暂行条例实施细则",
+                    "createTime": "2018-11-30 16:18:11",
+                    "id": "291865880471",
+                    "firtype": "政策法规",
                     "status": 1
-                },
-                // {
-                //     "ID": "9E5BC5F31EB7485A9E97C44947A90A1F",
-                //     "content": "公示公告",
-                //     "firtype": "891E3C9EBA7B423E8F1D28C500FF7406",
-                //     "KEY": "GSGG",
-                //     "DESCRIPTION": null
-                // }
+                }
             ]
         }
     },
     mounted() {
         request({
-            url: api.getTypes,
-            data: {
-                firtype: '通知公告'
-            }
+            url: api.getTypeZCFG
         }).then(r => {
             this.dataList = r.rows
         })

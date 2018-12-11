@@ -39,7 +39,8 @@
                     <input class="weui-input" type="number" required v-model="code" emptyTips="请输入验证码" notMatchTips="请输入验证码" placeholder="请输入验证码">
                 </div>
                 <div class="weui-cell__ft">
-                    <a href="javascript:;" @click="sendCode" class="weui-vcode-btn">获取验证码</a>
+                    <a href="javascript:;" v-if="second=0" @click="sendCode" class="weui-vcode-btn">获取验证码</a>
+                    <span class="weui-vcode-btn" v-else>{second}s获取验证码</span>
                 </div>
             </div>
         </div>
@@ -61,6 +62,8 @@ import api from "../../constants/api";
 import consts from "../../constants/";
 import Feedback from "../common/Feedback";
 
+let timer
+let s = 60
 export default {
   name: "home",
   data() {
@@ -69,7 +72,9 @@ export default {
         name: '',
         IDCardNum: '',
         code: '',
-      isSuccess: true
+        isSuccess: true,
+        second: 0,
+        disabled: false
     };
   },
   store: vstore,
@@ -87,6 +92,15 @@ export default {
         request({
             url: api.SendCode,
             data: {phone}
+        }).then(() => {
+            timer = setInterval(() => {
+                if (s > 0) {
+                    this.second = --s 
+                } else {
+                    s = 60
+                    clearInterval(timer)
+                }
+            }, 1000)
         });
     },
     genRsaKey(content) {

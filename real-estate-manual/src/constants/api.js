@@ -24,4 +24,6 @@ export default {
     cancelApply: '/xsyy/cancel', // cancel预约
     getTypes: '/type/getType', // 类型列表
     getType: '/type/getTypeBySecType', //单个类型列表
+    getTypeZCFG: '/type/getTypeZCFG', //政策法规列表
+    getTypeByTitle: '/type/getTypeByTitle', //详情
 }    

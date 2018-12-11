@@ -8,12 +8,14 @@
         </div>
         <div>
             <div class="weui-cells">
-                <router-link class="weui-cell weui-cell_access" :to="(link+'?id='+items.id+'&sectype='+items.sectype)" 
+                <router-link class="weui-cell weui-cell_access" :to="(link+'?id='+items.id+'&sectype='+items.sectype
+                    +'&title='+items.title)" 
                     v-for="(items,val,index) in dataList" 
                     :key="index">
                     <div class="weui-cell__bd">
                         <img class="myIcon" src="../../assets/icon_022.png" />
-                        <p>{{items.sectype || items.content}}</p>
+                        <p v-if="link=='notice-detail'">{{items.title}}</p>
+                        <p v-if="link=='/notice-sec'">{{items.sectype}}</p>
                         <!-- <slot name="name"></slot> -->
                     </div>
                     <div class="weui-cell__ft">

@@ -1,10 +1,12 @@
 <template>
-    <div v-html="content"></div>
+    <div class="" v-html="content"></div>
 </template>
 
 <script>
+import _ from 'underscore';
 import request from '../../utils/request.js';
 import api from '../../constants/api.js';
+
 
 export default {
     name: 'notice',
@@ -14,13 +16,17 @@ export default {
         }
     },
     mounted() {
-        const {sectype} = this.$route.query
+        const {sectype, title} = this.$route.query
         this.sectype = sectype
+        this.title = title
         request({
-            url: api.getTypes,
-  
+            url: api.getTypeByTitle,
+            data: {
+                title
+            }
         }).then(r => {
-            this.content = r.rows[0].content
+            const {content} = r.data
+            this.content = _.unescape(content)
         })
     },
 }

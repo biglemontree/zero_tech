@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 import Entry from './views/entry/Index.vue'
 import Agree from './views/entry/Agree.vue'
 import Register from './views/register/Index.vue'
@@ -107,6 +106,12 @@ export default new Router({
           name: 'notice-detail',
         //   meta: { title: '通知公告' },
           component: () => import(/* webpackChunkName: "notice-detail" */ './views/notice/detail.vue')
+      },
+      {
+          path: '/notice-lawyer',
+          name: 'notice-lawyer',
+          meta: { title: '政策法规' },
+          component: () => import(/* webpackChunkName: "notice-lawyer" */ './views/notice/lawyer.vue')
       },
   ]
 })

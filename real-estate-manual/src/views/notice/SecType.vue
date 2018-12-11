@@ -19,12 +19,13 @@ export default {
         return {
             "dataList": [
                 {
-                "ID": "9E5BC5F31EB7485A9E97C44947A90A1F",
-                "content": "公示公告",
-                "firtype": "891E3C9EBA7B423E8F1D28C500FF7406",
-                "KEY": "GSGG",
-                "DESCRIPTION": null
-            },
+                    "sectype": "公示公告",
+                    "createTime": "2018-10-19 14:57:21",
+                    "id": "639724546851",
+                    "title": "登记零距离 服务暖民心",
+                    "firtype": "通知公告",
+                    "status": 1
+                }
             ],
             sectype: ''
         }
