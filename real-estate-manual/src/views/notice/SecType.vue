@@ -31,6 +31,7 @@ export default {
         }
     },
     mounted() {
+        
         const {sectype} = this.$route.query
         this.sectype = sectype
         request({
