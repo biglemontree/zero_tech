@@ -26,7 +26,7 @@
                     <label class="weui-label">手机号码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="tel" required pattern="[0-9]{11}" v-model="phone" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号" placeholder="请输入手机号">
+                    <input class="weui-input" type="tel" required pattern="REG_TEL" v-model="phone" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号" placeholder="请输入手机号">
                 </div>
             </div>
         </div>
@@ -39,8 +39,8 @@
                     <input class="weui-input" type="number" required v-model="code" emptyTips="请输入验证码" notMatchTips="请输入验证码" placeholder="请输入验证码">
                 </div>
                 <div class="weui-cell__ft">
-                    <a href="javascript:;" v-if="second=0" @click="sendCode" class="weui-vcode-btn">获取验证码</a>
-                    <span class="weui-vcode-btn" v-else>{second}s获取验证码</span>
+                    <a href="javascript:;" v-if="second==0" @click="sendCode" class="weui-vcode-btn">获取验证码</a>
+                    <span class="weui-btn weui-btn_plain-primary weui-btn_plain-disabled" v-else disabled>{{second}}s获取验证码</span>
                 </div>
             </div>
         </div>
@@ -82,6 +82,7 @@ export default {
     weui.form.checkIfBlur('#form', {
         regexp: {
             IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
+            TEL: /^[0-9]{11}$/
         }
     })
   },
@@ -141,6 +142,7 @@ export default {
         }, {
             regexp: {
                 IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
+                TEL: /^[0-9]{11}$/
             }
         })
     }

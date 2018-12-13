@@ -17,13 +17,13 @@ export default {
     data() {
         return {
             "dataList": [
-                {
-                    "sectype": "不动产登记暂行条例实施细则",
-                    "createTime": "2018-11-30 16:18:11",
-                    "id": "291865880471",
-                    "firtype": "政策法规",
-                    "status": 1
-                }
+                // {
+                //     "sectype": "不动产登记暂行条例实施细则",
+                //     "createTime": "2018-11-30 16:18:11",
+                //     "id": "291865880471",
+                //     "firtype": "政策法规",
+                //     "status": 1
+                // }
             ]
         }
     },

@@ -21,6 +21,9 @@
     </div>
 </template>
 <script>
+import store from 'store'
+import vstore from '@/store'
+import { mapMutations } from 'vuex'
 import online from '../../assets/online-apply.png'
 export default {
     name: 'entry',
@@ -28,6 +31,13 @@ export default {
         return {
             online
         }
+    },
+    store: vstore,
+    mounted() {
+        this.fetchUserInfo()
+    },
+    methods: {
+        ...mapMutations(['fetchUserInfo'])
     }
 }
 </script>

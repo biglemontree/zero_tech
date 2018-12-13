@@ -79,7 +79,7 @@
             <a href="javascript:;" class="weui-btn weui-btn_primary" v-if="!isDeail" @click="save">下一步</a>
         </div>
     </div>
-    <Feedback v-else >
+    <Feedback v-else @go="go">
         <div slot="tip-info">
             <i class="weui-icon-success weui-icon_msg"></i>
             <h3 class="icon-box__title">操作成功</h3>
@@ -145,9 +145,9 @@ export default {
       }
   },
   methods: {
-      navBack() {
-
-      },
+     go() {
+        this.isSuccess = false
+    },
     fetchAvaiTime() {
         request({
             url: api.getTime,

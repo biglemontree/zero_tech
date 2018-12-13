@@ -11,7 +11,7 @@
         </div>
             <!-- <i class="weui-icon-warn weui-icon_msg-primary"></i> -->
         <div class="weui-btn-area">
-            <a href="javascript:;" @click="go" class="weui-btn weui-btn_primary">确定</a>
+            <a href="javascript:;" @click="$emit('go')" class="weui-btn weui-btn_primary">确定</a>
         </div>
     </div>
 </template>
@@ -20,13 +20,10 @@ export default {
     name: 'feedback',
     props: {
         type: String,
-        // go: Function
+        go: Function
     },
     methods: {
-        go() {
-            debugger
-            this.$router.go(-1)
-        }
+        
     }
 }
 </script>

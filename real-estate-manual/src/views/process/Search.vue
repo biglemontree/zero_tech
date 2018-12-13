@@ -26,12 +26,12 @@
                     <p class="icon-box__desc c-666">受理编号{{result.SLID}}</p>
                 </div>
             </Feedback> -->
-            <Feedback>
+            <Feedback @go="go">
                 <div slot="tip-info">
                     <i v-if="result.status === 1" class="weui-icon-success weui-icon_msg"></i>
                     <i v-else class="weui-icon-warn weui-icon_msg-primary"></i>
                     <h3 class="icon-box__title">{{result.SZZT}}</h3>
-                    <p class="icon-box__desc c-666">受理编号{{result.SLID}}</p>
+                    <p class="icon-box__desc c-666" v-if="result.SLID">受理编号{{result.SLID}}</p>
                 </div>
             </Feedback>
         </div>
@@ -56,7 +56,7 @@ export default {
     },
     store: vstore,
     mounted() {
-        // this.fetchUserInfo()
+        this.fetchUserInfo()
     },
     methods: {
         ...mapMutations(['fetchUserInfo']),
@@ -70,6 +70,9 @@ export default {
                 this.isSearched = true
                 this.result = r.data
             })
+        },
+        go() {
+            this.isSearched = false
         }
     },
   components: {

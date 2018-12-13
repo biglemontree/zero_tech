@@ -1,7 +1,8 @@
 <template>
     <div class="weui-panel weui-panel_access">
     <div class="weui-panel__bd">
-        <router-link :to="'/register/'+row.id" v-for="(row, index) in rows" :key="index" class="weui-media-box weui-media-box_appmsg">
+        <div class="noMore" v-if="rows.length==0">暂无数据</div>
+        <router-link :to="'/register/'+row.id" v-else v-for="(row, index) in rows" :key="index" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
                 <img class="weui-media-box__thumb" src="../../assets/search_list.png" alt="">
             </div>

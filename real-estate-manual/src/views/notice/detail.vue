@@ -1,5 +1,5 @@
 <template>
-    <div class="" v-html="content"></div>
+    <div class="p-20 content" v-html="content"></div>
 </template>
 
 <script>
@@ -31,3 +31,8 @@ export default {
     },
 }
 </script>
+<style scoped>
+p img {
+    max-width: 100%;
+}
+</style>

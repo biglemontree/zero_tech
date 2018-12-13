@@ -25,5 +25,6 @@ export default {
     getTypes: '/type/getType', // 类型列表
     getType: '/type/getTypeBySecType', //单个类型列表
     getTypeZCFG: '/type/getTypeZCFG', //政策法规列表
+    getTypeTZGG: '/type/getTypeTZGG', //通知公告列表
     getTypeByTitle: '/type/getTypeByTitle', //详情
 }    

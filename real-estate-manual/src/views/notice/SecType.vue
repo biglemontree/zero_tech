@@ -18,14 +18,14 @@ export default {
     data() {
         return {
             "dataList": [
-                {
-                    "sectype": "公示公告",
-                    "createTime": "2018-10-19 14:57:21",
-                    "id": "639724546851",
-                    "title": "登记零距离 服务暖民心",
-                    "firtype": "通知公告",
-                    "status": 1
-                }
+                // {
+                //     "sectype": "公示公告",
+                //     "createTime": "2018-10-19 14:57:21",
+                //     "id": "639724546851",
+                //     "title": "登记零距离 服务暖民心",
+                //     "firtype": "通知公告",
+                //     "status": 1
+                // }
             ],
             sectype: ''
         }

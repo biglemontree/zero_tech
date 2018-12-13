@@ -113,16 +113,7 @@ export default {
 }
 
 .noMore {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 14px;
-    color: #84888e;
-    height: 60px;
-    line-height: 60px;
     background-image: url(../../assets/nodata.png);
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
-    background-position-x: 38%;
-    background-position-y: center;
+
 }
 </style>
