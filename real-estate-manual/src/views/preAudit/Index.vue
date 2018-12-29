@@ -70,7 +70,6 @@
 
 <script>
 
-import store from 'store'
 import vstore from '@/store.js'
 import { mapState, mapMutations } from 'vuex'
 

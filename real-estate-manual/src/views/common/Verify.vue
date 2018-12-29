@@ -89,7 +89,6 @@ export default {
   methods: {
     sendCode() {
         const phone = this.genRsaKey(+this.phone)
-        console.log(phone)
         request({
             url: api.SendCode,
             data: {phone}
@@ -138,7 +137,6 @@ export default {
                     })
                 })
             }
-            // return true
         }, {
             regexp: {
                 IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
@@ -147,8 +145,6 @@ export default {
         })
     }
   },
-  components: {
-  }
 };
 </script>
 

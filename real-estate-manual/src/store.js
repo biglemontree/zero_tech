@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import request from "./utils/request";
 import api from "./constants/api";
-
+import s from 'store';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -22,17 +22,13 @@ export default new Vuex.Store({
         },
         fetchUserInfo(state, data) {
             state.userInfo = data
+            s.set('user', r.data)
         },
         fetchNeedFiles(state, rows) {
             state.needUploads = rows
         },
-        setFileList(state, rows) {
-            // state.fileList += ids
-
-        },
         addIds(state, ids) {
             state.fileIds += ids
-            debugger
         }
     },
     actions: {

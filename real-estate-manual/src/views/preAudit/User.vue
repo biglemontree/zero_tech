@@ -26,7 +26,6 @@
                     <label class="weui-label">证件号</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <!-- v-model="QLRZJH" -->
                     <input class="weui-input" type="text"  v-model="QLRZJH" placeholder="请输入证件号">
                 </div>
             </div>
@@ -79,13 +78,11 @@ export default {
         this.QLRXM = userName
         this.QLRZJH = cardId
     })
-
   },
   computed: {
       ...mapState(['userInfo', 'onlineData', 'fileIds'])
   },
   methods: {
-      ...mapMutations(['fetchUserInfo']),
       ...mapActions(['actionUserInfo']),
     fetchAvaiTime() {
         request({

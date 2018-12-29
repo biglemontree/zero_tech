@@ -7,7 +7,7 @@
                     <span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</span>
                 </div>
                 <div class="weui-cell__bd">
-                    <p>联系人名称</p>
+                    <p>{{user.phone}}</p>
                     <p style="font-size: 13px;color: #888888;">摘要信息</p>
                 </div>
             </div>
@@ -33,11 +33,26 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import vstore from '@/store.js'
+import store from 'store';
+import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'home',
-  components: {
+  name: 'center',
+  store: vstore,
+  data() {
+      return {
+          user: store.get('user')
+      }
+  },
+  mounted() {
+    this.actionUserInfo()
+  },
+  computed: {
+      ...mapState(['userInfo', 'onlineData', 'fileIds'])
+  },
+  methods: {
+      ...mapActions(['actionUserInfo']),
   }
 }
 </script>
