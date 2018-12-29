@@ -13,22 +13,18 @@
             </div>
             <div class="weui-cell weui-cell_access">
                 <div class="weui-cell__bd">
-                    <span style="vertical-align: middle">单行列表</span>
-                    <span class="weui-badge" style="margin-left: 5px;">8</span>
+                    <span style="vertical-align: middle">我的预审</span>
                 </div>
                 <div class="weui-cell__ft"></div>
             </div>
             <div class="weui-cell weui-cell_access">
                 <div class="weui-cell__bd">
-                    <span style="vertical-align: middle">单行列表</span>
-                    <span class="weui-badge" style="margin-left: 5px;">8</span>
+                    <span style="vertical-align: middle">我的预约</span>
                 </div>
-                <div class="weui-cell__ft">详细信息</div>
             </div>
             <div class="weui-cell weui-cell_access">
                 <div class="weui-cell__bd">
-                    <span style="vertical-align: middle">单行列表</span>
-                    <span class="weui-badge" style="margin-left: 5px;">New</span>
+                    <span style="vertical-align: middle">个人信息修改</span>
                 </div>
                 <div class="weui-cell__ft"></div>
             </div>

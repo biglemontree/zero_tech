@@ -22,10 +22,7 @@ service.interceptors.request.use(options => {
     // 添加token到查询参数中
     if (store.token ) {
         config.data.token = store.token
-    } 
-    // else if(config.data.url.includes('')){
-
-    // }
+    }
     config[field] = { ...options[field], token:  store.get('token')}
 
     return config
