@@ -1,6 +1,5 @@
 import axios from 'axios'
 import store from 'store'
-import qs from 'qs'
 // import appStore from '@/store'
 
 // const baseURL = 'http://2121k4a180.iask.in:11898/jlbdc_gzh/'

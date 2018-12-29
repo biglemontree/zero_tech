@@ -5,7 +5,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">受理点</label></div>
                 <div class="weui-cell__bd">
-                    蕉岭县
+                    五华县
                     <!-- <input class="weui-input" name="" type="text" emptyTips="请输入受理点" placeholder="请输入受理点"/> -->
                 </div>
             </div>
@@ -180,7 +180,7 @@ export default {
                 "CARD_ID": cardId, // 身份证号,
                 YWLX: this.YWLX, // 预约业务类型,
                 "name": userName, // 预约人姓名,
-                "BLJG": '蕉岭县', // 办理机构,
+                "BLJG": '五华县', // 办理机构,
             }
         }).then(() => this.isSuccess = true)
     },
