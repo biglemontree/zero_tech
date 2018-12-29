@@ -4,15 +4,15 @@ import qs from 'qs'
 // import appStore from '@/store'
 
 // const baseURL = 'http://2121k4a180.iask.in:11898/jlbdc_gzh/'
-// const baseURL = 'http://118.89.65.103:8080/jlbdc_gzh/'
-// const imgURL = 'http://118.89.65.103:8080/rs/'
+const baseURL = 'http://118.89.65.103:8080/jlbdc_gzh/'
+const imgURL = 'http://118.89.65.103:8080/rs/'
 // 局里
-const baseURL = 'http://119.146.150.29:8081/jlbdc_gzh/'
-const imgURL = 'http://119.146.150.29:8081/rs/'
+// const baseURL = 'http://119.146.150.29:8081/jlbdc_gzh/'
+// const imgURL = 'http://119.146.150.29:8081/rs/'
 const service = axios.create({
     baseURL,
     method: 'post',
-    timeout: 15000
+    timeout: 20000
 })
 service.interceptors.request.use(options => {
     console.log('request: ', options)

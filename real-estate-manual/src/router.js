@@ -78,10 +78,13 @@ export default new Router({
       path: '/list',
       name: 'list',
         meta: { title: '我的预约' },
-      // route level code-splitting
-      // this generates a separate chunk (list.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "list" */ './views/apply/List.vue')
+    },
+    {
+      path: '/my',
+      name: 'my',
+        meta: { title: '个人中心' },
+      component: () => import(/* webpackChunkName: "center" */ './views/my/Center.vue')
     },
     {
       path: '/search',
