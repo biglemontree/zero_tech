@@ -5,7 +5,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">受理点</label></div>
                 <div class="weui-cell__bd">
-                    蕉岭县
+                    五华县
                     <!-- <input class="weui-input" name="" type="text" emptyTips="请输入受理点" placeholder="请输入受理点"/> -->
                 </div>
             </div>

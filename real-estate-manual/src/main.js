@@ -4,9 +4,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './styles/base.css'
-
-// Vue.use(weui)
-// Vue.prototype.weui = weui
+import weui from 'weui';
+Vue.use(weui)
+Vue.prototype.weui = weui
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
