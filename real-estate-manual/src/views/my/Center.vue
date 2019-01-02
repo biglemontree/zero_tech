@@ -50,7 +50,7 @@ export default {
   store: vstore,
   data() {
       return {
-          user: store.get('user')
+          user: store.get('user') || {}
       }
   },
   mounted() {

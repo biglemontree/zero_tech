@@ -154,7 +154,13 @@ export default {
             data: {
                 date: this.YYRQ
             }
-        }).then(r => this.availTime = r.rows);
+        }).then(r => {
+            if (r.rows.length==0) {
+                weui.toast('暂无可预约时间')
+                return
+            }
+            this.availTime = r.rows
+        });
     },
     fetchYwType() {
         request({
@@ -164,7 +170,17 @@ export default {
     fetchDate() {
         request({
             url: api.getDate,
-        },true).then(r => this.availDate = r.rows);
+        },true).then(r => {
+            debugger
+            if (r.rows.length==0) {
+                weui.showModal({
+                    title: '提示',
+                    content: '暂无可预约时段',
+                })
+                debugger
+                return
+            }
+            this.availDate = r.rows});
     },
     save() {
         const {userName, phone, cardId} = this.userInfo
