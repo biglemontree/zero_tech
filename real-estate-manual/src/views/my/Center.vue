@@ -4,30 +4,38 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
                     <img src="images/pic_160.png" style="width: 50px;display: block">
-                    <span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</span>
+                    <!-- <span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</span> -->
                 </div>
                 <div class="weui-cell__bd">
                     <p>{{user.phone}}</p>
-                    <p style="font-size: 13px;color: #888888;">摘要信息</p>
+                    <p style="font-size: 13px;color: #888888;"></p>
                 </div>
             </div>
-            <div class="weui-cell weui-cell_access">
-                <div class="weui-cell__bd">
-                    <span style="vertical-align: middle">我的预审</span>
+            <router-link to="/myAudit">
+                <div class="weui-cell weui-cell_access">
+                    <div class="weui-cell__bd">
+                        <span style="vertical-align: middle">我的预审</span>
+                    </div>
+                    <div class="weui-cell__ft"></div>
                 </div>
-                <div class="weui-cell__ft"></div>
-            </div>
-            <div class="weui-cell weui-cell_access">
-                <div class="weui-cell__bd">
-                    <span style="vertical-align: middle">我的预约</span>
+            </router-link> 
+            <router-link to="/list">
+                <div class="weui-cell weui-cell_access">
+                    <div class="weui-cell__bd">
+                        <span style="vertical-align: middle">我的预约</span>
+                    </div>
+                    <div class="weui-cell__ft"></div>
                 </div>
-            </div>
-            <div class="weui-cell weui-cell_access">
-                <div class="weui-cell__bd">
-                    <span style="vertical-align: middle">个人信息修改</span>
+            </router-link>                
+            <router-link to="/verify?type=1">
+                <div class="weui-cell weui-cell_access">
+                    <div class="weui-cell__bd">
+                        <span style="vertical-align: middle">个人信息修改</span>
+                    </div>
+                    <div class="weui-cell__ft"></div>
                 </div>
-                <div class="weui-cell__ft"></div>
-            </div>
+            </router-link>                
+            
         </div>
   </div>
 </template>
@@ -46,13 +54,10 @@ export default {
       }
   },
   mounted() {
-    this.actionUserInfo()
   },
   computed: {
-      ...mapState(['userInfo', 'onlineData', 'fileIds'])
   },
   methods: {
-      ...mapActions(['actionUserInfo']),
   }
 }
 </script>

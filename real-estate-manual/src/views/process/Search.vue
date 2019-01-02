@@ -31,7 +31,7 @@
                     <i v-if="result.status === 1" class="weui-icon-success weui-icon_msg"></i>
                     <i v-else class="weui-icon-warn weui-icon_msg-primary"></i>
                     <h3 class="icon-box__title">{{result.SZZT}}</h3>
-                    <p class="icon-box__desc c-666" v-if="result.SLID">受理编号{{result.SLID}}</p>
+                    <p class="icon-box__desc c-666" >受理编号{{SLID}}</p>
                 </div>
             </Feedback>
         </div>

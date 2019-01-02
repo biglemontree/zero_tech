@@ -42,7 +42,7 @@
                     <label class="weui-label">邮政编码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" v-model="QLRYB" placeholder="请输入邮政编码">
+                    <input class="weui-input" type="number" pattern="[0-9]*" notMatchTips="请输入姓名" v-model="QLRYB" placeholder="请输入邮政编码">
                 </div>
             </div>
         </div>

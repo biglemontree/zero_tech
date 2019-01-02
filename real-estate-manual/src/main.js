@@ -23,11 +23,6 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-//   if (!storage.get('token')) {
-//       router.push({
-//         path: '/agree',
-//     })
-//   }
 new Vue({
   router,
   store,

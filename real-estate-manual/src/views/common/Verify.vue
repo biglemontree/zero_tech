@@ -26,7 +26,7 @@
                     <label class="weui-label">手机号码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="tel" required pattern="REG_TEL" v-model="phone" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号" placeholder="请输入手机号">
+                    <input class="weui-input" type="tel" @blur="checkTel()" required pattern="REG_TEL" v-model="phone" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号" placeholder="请输入手机号">
                 </div>
             </div>
         </div>
@@ -39,8 +39,8 @@
                     <input class="weui-input" type="number" required v-model="code" emptyTips="请输入验证码" notMatchTips="请输入验证码" placeholder="请输入验证码">
                 </div>
                 <div class="weui-cell__ft">
-                    <a href="javascript:;" v-if="second==0" @click="sendCode" class="weui-vcode-btn">获取验证码</a>
-                    <span class="weui-btn weui-btn_plain-primary weui-btn_plain-disabled" v-else disabled>{{second}}s获取验证码</span>
+                    <a href="javascript:;" v-if="second==0" @click="sendCode" :class="['weui-btn',  {'weui-btn_plain-disabled': disabled, 'weui-btn_plain-primary':!disabled}]">获取验证码</a>
+                    <span class="weui-btn weui-btn_plain-disabled" v-else disabled>{{second}}s获取验证码</span>
                 </div>
             </div>
         </div>
@@ -54,8 +54,9 @@
 <script>
 import axios from 'axios'
 import NodeRSA from "node-rsa";
+import store from 'store';
 import qs from 'qs'
-import store from 'store'
+import localstore from 'store'
 import vstore from '@/store.js'
 import request from "../../utils/request";
 import api from "../../constants/api";
@@ -64,17 +65,20 @@ import Feedback from "../common/Feedback";
 
 let timer
 let s = 60
+const hasLocalUser = localstore.get('user') || {}
+const {phone,userName: name,id: IDCardNum} = hasLocalUser
+
 export default {
   name: "home",
   data() {
     return {
-        phone: null,
-        name: '',
-        IDCardNum: '',
+        phone,
+        name,
+        IDCardNum,
         code: '',
         isSuccess: true,
         second: 0,
-        disabled: false
+        disabled: true // 验证码btn
     };
   },
   store: vstore,
@@ -82,11 +86,20 @@ export default {
     weui.form.checkIfBlur('#form', {
         regexp: {
             IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
-            TEL: /^[0-9]{11}$/
+            TEL: /^1(3|4|5|7|8|9)\d{9}$/
         }
     })
+    if (phone) {
+        this.disabled = false
+    }
   },
   methods: {
+      checkTel() {
+          
+          if (this.phone.match(/^1(3|4|5|7|8|9)\d{9}$/g)) {
+              this.disabled = false
+          } else { this.disabled = true }
+      },
     sendCode() {
         const phone = this.genRsaKey(+this.phone)
         request({
@@ -114,33 +127,35 @@ export default {
         weui.form.validate('#form', error => {
             if (!error) {
                 const {phone,IDCardNum,code,name} = this
+                let params = this.$route.query.type
+                debugger
                 request({
-                    url: api.CheckUser,
+                    url: params?api.updateInfo : api.CheckUser,
                     data: {
                         phone,
                         IDCardNum,
                         code,
-                        name
+                        name,
+                        // 更新
+                        cardId: IDCardNum,
+                        username: name
                     }
                 }).then(r => {
-                    store.set('token', r.data)
-                    let params = this.$route.query.from
                     if (!params) {
-                        params = 'entry'
+                        store.set('token', r.data)
+                    }else {
+                        store.set('user', r.data)
                     }
-                    console.log('parms ', params)
 
                     this.$router.push({
                         path: '/entry'
-                        // path: '/' + params,
-                        // path: store.get('from'),
                     })
                 })
             }
         }, {
             regexp: {
                 IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
-                TEL: /^[0-9]{11}$/
+                TEL: /^1[345789]\d{9}$/
             }
         })
     }

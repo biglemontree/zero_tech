@@ -22,7 +22,7 @@ export default new Vuex.Store({
         },
         fetchUserInfo(state, data) {
             state.userInfo = data
-            s.set('user', r.data)
+            // s.set('user', data)
         },
         fetchNeedFiles(state, rows) {
             state.needUploads = rows

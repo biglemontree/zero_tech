@@ -87,6 +87,12 @@ export default new Router({
       component: () => import(/* webpackChunkName: "center" */ './views/my/Center.vue')
     },
     {
+      path: '/myAudit',
+      name: 'myAudit',
+        meta: { title: '我的预审' },
+      component: () => import(/* webpackChunkName: "myAudit" */ './views/my/Audit.vue')
+    },
+    {
       path: '/search',
       name: 'search',
         meta: { title: '进度查询' },
@@ -115,6 +121,12 @@ export default new Router({
           name: 'notice-lawyer',
           meta: { title: '政策法规' },
           component: () => import(/* webpackChunkName: "notice-lawyer" */ './views/notice/lawyer.vue')
+      },
+      {
+          path: '/qa',
+          name: 'qa',
+          meta: { title: '政策法规' },
+          component: () => import(/* webpackChunkName: "qa" */ './views/notice/qa.vue')
       },
   ]
 })

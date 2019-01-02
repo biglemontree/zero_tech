@@ -38,9 +38,8 @@ service.interceptors.response.use(
             return data
         } else if(code === 422) {
             const hash = window.location.hash
-            const url = "/dist/#/agree?from=" + hash.slice(2)
-            console.log(url)
-            debugger
+            const url = "/dist/#/agree"
+            // const url = "/dist/#/agree?from=" + hash.slice(2)
             window.location = url
         }
 

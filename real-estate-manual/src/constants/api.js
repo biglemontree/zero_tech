@@ -1,6 +1,8 @@
 export default {
     SendCode: 'user/sendCode',
     CheckUser: 'user/checkUser',
+    getSqbList: '/sqb/getSqbList',
+    updateInfo: 'user/updateInfo',
     getTdlxList: 'tdlx/getTdlxList',
     getDjlxList: 'djlx/getDjlxList',
     getDjyyList: 'djyy/getDjyyList',
@@ -13,6 +15,7 @@ export default {
     getYwList: '/yw/getYwList', //
     saveSqb: '/sqb/saveSqb', //线上审核
     getTdqllxList: '/tdqllx/getTdqllxList', // tu
+    questionAnswer: '/questionAnswer/getQuestionAndAnswer', // 问答库
     fileList: 'zmwjlx/fileList', // zmwjlx/fileList
     geetBdcslqkList: 'bdcslqk/geetBdcslqkList', // 不动产设立情况
     fetchUserInfo: '/user/getUserInfo',
