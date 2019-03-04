@@ -2,7 +2,7 @@
     <div>
         <div v-if="!isSearched">
             <div >
-                <img class="top" src="../../assets/logo1.png" alt="" srcset="">
+                <img class="top" src="../../assets/logo.png" alt="" srcset="">
             </div>
             <div class="weui-cells__title">请输入您的受理编号</div>
             <div class="weui-cells weui-cells_form">
@@ -19,13 +19,6 @@
             </div>
         </div>
         <div v-else>
-            <!-- <Feedback v-if="">
-                <div slot="tip-info">
-                    <i class="weui-icon-success weui-icon_msg"></i>
-                    <h3 class="icon-box__title">已完结</h3>
-                    <p class="icon-box__desc c-666">受理编号{{result.SLID}}</p>
-                </div>
-            </Feedback> -->
             <Feedback @go="go">
                 <div slot="tip-info">
                     <i v-if="result.status === 1" class="weui-icon-success weui-icon_msg"></i>

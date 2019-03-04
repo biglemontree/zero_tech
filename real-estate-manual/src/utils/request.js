@@ -3,11 +3,11 @@ import store from 'store'
 // import appStore from '@/store'
 
 // const baseURL = 'http://2121k4a180.iask.in:11898/jlbdc_gzh/'
-const baseURL = 'http://118.89.65.103:8080/jlbdc_gzh/'
-const imgURL = 'http://118.89.65.103:8080/rs/'
+// const baseURL = 'http://118.89.65.103:8080/jlbdc_gzh/'
+// const imgURL = 'http://118.89.65.103:8080/rs/'
 // 局里
-// const baseURL = 'http://119.146.150.29:8081/jlbdc_gzh/'
-// const imgURL = 'http://119.146.150.29:8081/rs/'
+const baseURL = 'http://119.146.150.29:8081/jlbdc_gzh/'
+const imgURL = 'http://119.146.150.29:8081/rs/'
 const service = axios.create({
     baseURL,
     method: 'post',
@@ -38,8 +38,8 @@ service.interceptors.response.use(
             return data
         } else if(code === 422) {
             const hash = window.location.hash
+            store.remove('user')
             const url = "/dist/#/agree"
-            // const url = "/dist/#/agree?from=" + hash.slice(2)
             window.location = url
         }
 

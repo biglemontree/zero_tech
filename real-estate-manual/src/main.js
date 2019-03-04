@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) => {
   }
   if (to.name==='agree') {
     //   store.state.from = from
-    console.log(from)
+      console.log('from ', from)
     
       storage.set('from', from.path)
   }

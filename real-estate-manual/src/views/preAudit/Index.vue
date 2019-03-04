@@ -113,7 +113,7 @@ export default {
             data: {
                 type: this.DJLX.id
             }
-        }).then(r => {
+        }).then(r => { 
             this.ywInfoList = r.rows
         })
     },

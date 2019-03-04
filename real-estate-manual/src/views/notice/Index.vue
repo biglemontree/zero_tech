@@ -1,7 +1,6 @@
 <template>
     <div id="app" class="yo-scroll" v-cloak>
         <Notice :dataList="dataList" :title="dataList[0].firtype" :link="'/notice-sec'">
-
         </Notice>
     </div>
 

@@ -9,7 +9,7 @@ export default new Vuex.Store({
     state: {
         userInfo: {},
         onlineData: {
-            // DJLX, SQLX, todo
+            // DJLX: {name: "首次登记", id: 1, status: 1}, SQLX: , todo: {name: "国有建设用地首次登记（地上）", id: 6, type: 1, status: 1}
         },
         needUploads: [],
         fileList: [], // 上传的图片列表
@@ -22,7 +22,7 @@ export default new Vuex.Store({
         },
         fetchUserInfo(state, data) {
             state.userInfo = data
-            // s.set('user', data)
+            s.set('user', data)
         },
         fetchNeedFiles(state, rows) {
             state.needUploads = rows

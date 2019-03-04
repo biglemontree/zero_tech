@@ -1,6 +1,6 @@
 <template>
     <div id="uploader">
-        <div v-if="needUploads.length>0">
+        <div v-if="needUploads.length>0" id="form">
             <div v-for="(item, index) in needUploads" :key="index" :id="'uploader'+index">
                 <div class="weui-cells__title">证明文件类型</div>
                 <div class="weui-cells weui-cells_form" >
@@ -23,7 +23,7 @@
                                 </li> -->
                             </ul>
                             <div class="weui-uploader__input-box">
-                                <input id="uploaderInput" :dataset="item.id" class="weui-uploader__input" type="file" accept="image/*" multiple />
+                                <input id="uploaderInput" :dataset="item.id" required emptyTips="请上传文件" class="weui-uploader__input" type="file" accept="image/*" multiple />
                             </div>
                         </div>
                     </div>
@@ -46,35 +46,37 @@ import request,{baseURL, imgURL} from "../../utils/request";
 import api from "../../constants/api";
 
 let fieldids = ''
+let fieldArr = []
 export default {
     name: 'upload',
     data() {
         return {
             imgURL,
-            // fileList: [],
+            idArr: [],
             ids: ''
         }
     },
     store: vstore,
-    mounted() {
-
-        this.$store.dispatch('actionNeedFiles').then(r => {
-            for (let index = 0; index < r.rows.length; index++) {
-                const item = r.rows[index]
+    mounted: function (){
+        this.$store.dispatch('actionNeedFiles').then(async r => {
+            await r.rows.map(async (item, index) => {
                 const {id} = item
-                this.upload(index, id).then(r => {
-                    const {rows} = r
+                const res = await this.upload(index, id)
+                const {rows} = res
                     const arr = this.$store.state.fileList[index]
-                    if (arr) {
-                        this.$store.state.fileList[index].push(rows)
+                    if (arr) { // 返回数据持久化
+                        this.$store.state.fileList[index].push(rows) // 上传成功后,回显示图片
                     } else {
                         this.$store.state.fileList[index] = []
                         this.$store.state.fileList[index].push(rows)
                     }
-                    const ids = rows.reduce((total, item) => item.id+','+ total, '')
-                    fieldids = fieldids + ids
-                })
-            }
+                    console.log(rows, 'res 返回的')
+                    const ids = rows.reduce((total, item) => {
+                        fieldArr.push(item.id)
+                        return item.id+','+ total
+                    }, '')
+                    // fieldids = fieldids + ids
+            })
         })
     },
     computed: {
@@ -86,17 +88,22 @@ export default {
     methods: {
         ...mapMutations(['fetchNeedFiles']),
         next() {
-            this.$store.state.fileIds = fieldids
+            console.log(this.idArr)
+            this.$store.state.fileIds = this.idArr.join(',')
+            if (fieldArr.length<3) {
+                weui.toast('请上传相应的图片')
+                return
+            }
             this.$router.push({
                 path: '/user'
             })
         },
         upload(index, id) {
+            const that = this
             return new Promise((resolve, reject) => {
-                let ids = ''
                 weui.uploader('#uploader'+index, {
                     url: `${baseURL}zmwjlx/uploadFile`,
-                    auto: false,
+                    auto: true,
                     type: 'file',
                     fileVal: 'file',
                     compress: {
@@ -105,16 +112,21 @@ export default {
                         quality: .8
                     },
                     onQueued() {
-                        this.upload()
+                        // this.upload(index, id)
+                        // uploadList.push(this)
                     },
                     onBeforeSend(data, headers) {
-                        console.log(this);
                         $.extend(data, { 
                             zmwjlxId: id,
                             token: store.get('token')
                         }); // 可以扩展此对象来控制上传参数
                     },
-                    onSuccess: resolve,
+                    // onSuccess: resolve,
+                    onSuccess: (res) => {
+                        console.log('res...', res)
+                        that.idArr.push(res.rows[0].id)
+                        resolve(res)
+                    },
                     onError() {
                         return true
                     }

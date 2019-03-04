@@ -9,7 +9,7 @@
 .py-20 {padding: 20px 0;}
 .px-20 {padding: 0 20px;}
 .px-10 {padding: 0 10px;}
-.fs-12px {font-size: 12px;}
+.fs-12px {font-size: 12px!important;}
 .fs-13px {font-size: 13px;}
 .fs-14px {font-size: 14px;}
 .fixed { position: fixed;}

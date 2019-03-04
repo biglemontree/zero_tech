@@ -5,7 +5,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">受理点</label></div>
                 <div class="weui-cell__bd">
-                    五华县
+                    蕉岭县
                     <!-- <input class="weui-input" name="" type="text" emptyTips="请输入受理点" placeholder="请输入受理点"/> -->
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <div class="weui-cell__hd"><label class="weui-label">预约类型</label></div>
                 <div class="weui-cell__bd">
                     <div v-if="isDeail">{{detail.YWName}}</div>
-                    <select v-else class="weui-select" name="YWLX" v-model="YWLX" required tips="请输入手机号" notMatchTips="请输入正确的手机号">
+                    <select v-else class="weui-select" name="YWLX" v-model="YWLX" required tips="请" notMatchTips="请输入正确的手机号">
                         <option :selected="ywTypes[0].name" @click="fetchDate" v-for="(item, index) in ywTypes" :key="index" :value="item.name">{{item.name}}</option>
                     </select>
                 </div>
@@ -30,7 +30,7 @@
                 <div class="weui-cell__hd"><label for="" class="weui-label">预约时间</label></div>
                 <div class="weui-cell__bd">
                     <div v-if="isDeail">{{detail.YYRQ}}</div>
-                    <select v-else class="weui-select" name="YYRQ" v-model="YYRQ">
+                    <select v-else class="weui-select" name="YYRQ" v-model="YYRQ" @click="fetchSelDate">
                         <option :selected="availDate[0].createTime" @click="fetchDate" v-for="(item, index) in availDate" :key="index" :value="item.createTime">{{item.createTime}}</option>
                     </select>
                 </div>
@@ -148,6 +148,11 @@ export default {
      go() {
         this.isSuccess = false
     },
+    fetchSelDate(e) {
+        if (this.availDate.length==0) {
+            weui.toast('暂无可预约时间')
+        }
+    },
     fetchAvaiTime() {
         request({
             url: api.getTime,
@@ -160,6 +165,7 @@ export default {
                 return
             }
             this.availTime = r.rows
+            return
         });
     },
     fetchYwType() {
@@ -168,16 +174,12 @@ export default {
         },true).then(r => this.ywTypes = r.rows);
     },
     fetchDate() {
+        
         request({
             url: api.getDate,
         },true).then(r => {
-            debugger
             if (r.rows.length==0) {
-                weui.showModal({
-                    title: '提示',
-                    content: '暂无可预约时段',
-                })
-                debugger
+                weui.toast('暂无可预约时段', {duration: 1000})
                 return
             }
             this.availDate = r.rows});
@@ -196,7 +198,7 @@ export default {
                 "CARD_ID": cardId, // 身份证号,
                 YWLX: this.YWLX, // 预约业务类型,
                 "name": userName, // 预约人姓名,
-                "BLJG": '五华县', // 办理机构,
+                "BLJG": '蕉岭县', // 办理机构,
             }
         }).then(() => this.isSuccess = true)
     },

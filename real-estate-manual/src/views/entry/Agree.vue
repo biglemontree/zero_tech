@@ -1,10 +1,10 @@
 <template>
     <div>
         <div >
-            <img class="top" src="../../assets/logo1.png" alt="" srcset="">
+            <img class="top" src="../../assets/logo.png" alt="" srcset="">
         </div>
         <div class="px-20 fs-12px">
-            <div class="center my-20 fs-14px bold">五华县不动产登记网上办事须知</div>
+            <div class="center my-20 fs-14px bold">蕉岭县不动产登记网上办事须知</div>
             <div>
                 通过实名认证的申请人可通过网上预约办理各项登记业务，可上传材料进行网上预审，可网络查询登记事项进度情况。（特别提示：境外人士暂无法通过网上预约取号办理。）
 为方便您有效进行预约，请抽空详细阅读以下网上办事规则：
@@ -62,10 +62,8 @@ export default {
                 weui.toast('请同意协议')
                 return
             }
-            const params = this.$route.query.from
-            console.log('agree ', params)
             this.$router.push({
-                path: '/verify?from='+ params
+                path: '/verify'
             })
         }
     }

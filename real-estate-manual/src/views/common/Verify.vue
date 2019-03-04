@@ -26,7 +26,7 @@
                     <label class="weui-label">手机号码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="tel" @blur="checkTel()" required pattern="REG_TEL" v-model="phone" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号" placeholder="请输入手机号">
+                    <input class="weui-input" type="tel" @input="checkTel()" required pattern="REG_TEL" v-model="phone" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号" placeholder="请输入手机号">
                 </div>
             </div>
         </div>
@@ -52,114 +52,134 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 import NodeRSA from "node-rsa";
-import store from 'store';
-import qs from 'qs'
-import localstore from 'store'
-import vstore from '@/store.js'
+import store from "store";
+import qs from "qs";
+import localstore from "store";
+import vstore from "@/store.js";
 import request from "../../utils/request";
 import api from "../../constants/api";
 import consts from "../../constants/";
 import Feedback from "../common/Feedback";
 
-let timer
-let s = 60
-const hasLocalUser = localstore.get('user') || {}
-const {phone,userName: name,id: IDCardNum} = hasLocalUser
-
+let timer;
+let s = 60;
+const hasLocalUser = localstore.get("user") || {};
+const { phone, userName: name, cardId: IDCardNum } = hasLocalUser;
+debugger
 export default {
   name: "home",
   data() {
     return {
-        phone,
-        name,
-        IDCardNum,
-        code: '',
-        isSuccess: true,
-        second: 0,
-        disabled: true // 验证码btn
+      phone,
+      name,
+      IDCardNum,
+      code: "",
+      isSuccess: true,
+      second: 0,
+      disabled: true // 验证码btn
     };
   },
   store: vstore,
   mounted() {
-    weui.form.checkIfBlur('#form', {
-        regexp: {
-            IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
-            TEL: /^1(3|4|5|7|8|9)\d{9}$/
-        }
-    })
+    weui.form.checkIfBlur("#form", {
+      regexp: {
+        IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
+        TEL: /^1(3|4|5|7|8|9)\d{9}$/
+      }
+    });
     if (phone) {
-        this.disabled = false
+      this.disabled = false;
     }
   },
   methods: {
-      checkTel() {
-          
-          if (this.phone.match(/^1(3|4|5|7|8|9)\d{9}$/g)) {
-              this.disabled = false
-          } else { this.disabled = true }
-      },
+    checkTel() {
+      if (this.phone.match(/^1(3|4|5|7|8|9)\d{9}$/g)) {
+        this.disabled = false;
+      } else {
+        this.disabled = true;
+      }
+    },
     sendCode() {
-        const phone = this.genRsaKey(+this.phone)
-        request({
-            url: api.SendCode,
-            data: {phone}
-        }).then(() => {
-            timer = setInterval(() => {
-                if (s > 0) {
-                    this.second = --s 
-                } else {
-                    s = 60
-                    clearInterval(timer)
-                }
-            }, 1000)
-        });
+      const phone = this.genRsaKey(+this.phone);
+      request({
+        url: api.SendCode,
+        data: { phone }
+      }).then(() => {
+        timer = setInterval(() => {
+          if (s > 0) {
+            this.second = --s;
+          } else {
+            s = 60;
+            clearInterval(timer);
+          }
+        }, 1000);
+      });
     },
     genRsaKey(content) {
-        const key = new NodeRSA();
-        key.setOptions({ encryptionScheme: "pkcs1" });
-        key.importKey(consts.publicKey);
-        const x = key.encrypt(content, "base64");
-        return x
+      const key = new NodeRSA();
+      key.setOptions({ encryptionScheme: "pkcs1" });
+      key.importKey(consts.publicKey);
+      const x = key.encrypt(content, "base64");
+      return x;
     },
     checkUser() {
-        weui.form.validate('#form', error => {
-            if (!error) {
-                const {phone,IDCardNum,code,name} = this
-                let params = this.$route.query.type
-                debugger
-                request({
-                    url: params?api.updateInfo : api.CheckUser,
-                    data: {
-                        phone,
-                        IDCardNum,
-                        code,
-                        name,
-                        // 更新
-                        cardId: IDCardNum,
-                        username: name
-                    }
-                }).then(r => {
-                    if (!params) {
-                        store.set('token', r.data)
-                    }else {
-                        store.set('user', r.data)
-                    }
-
-                    this.$router.push({
-                        path: '/entry'
-                    })
-                })
-            }
-        }, {
-            regexp: {
-                IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
-                TEL: /^1[345789]\d{9}$/
-            }
-        })
+        let params = this.$route.query.type;
+    //   if (!params) {
+    //       debugger
+    //     this.$router.push({
+    //       path: store.get("from")
+    //     });
+    //   } else {
+    //     this.$router.back(-1);
+    //   }
+    //   return
+      weui.form.validate(
+        "#form",
+        error => {
+          if (!error) {
+            const { phone, IDCardNum, code, name } = this;
+            request({
+              url: params ? api.updateInfo : api.CheckUser,
+              data: {
+                phone,
+                IDCardNum,
+                code,
+                name,
+                // 更新
+                cardId: IDCardNum,
+                username: name
+              }
+            }).then(r => {
+              if (!params) {
+                store.set("token", r.data);
+                this.$router.push({
+                  path: store.get("from")
+                });
+              } else {
+                // { phone, userName: name, id: IDCardNum } = hasLocalUser
+                store.set('user', r.data)
+                weui.toast('修改成功',1000)
+                this.$router.back(-1);
+              }
+            });
+          }
+        },
+        {
+          regexp: {
+            IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
+            TEL: /^1[345789]\d{9}$/
+          }
+        }
+      );
     }
-  },
+  }
 };
 </script>
 
+<style scoped>
+.weui-label {
+    width: 80px;
+}
+</style>

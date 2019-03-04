@@ -125,7 +125,7 @@ export default new Router({
       {
           path: '/qa',
           name: 'qa',
-          meta: { title: '政策法规' },
+          meta: { title: '业务知识' },
           component: () => import(/* webpackChunkName: "qa" */ './views/notice/qa.vue')
       },
   ]

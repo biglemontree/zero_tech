@@ -3,8 +3,7 @@
       <div class="weui-cells">
             <div class="weui-cell">
                 <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                    <img src="images/pic_160.png" style="width: 50px;display: block">
-                    <!-- <span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</span> -->
+                    <img src="../../assets/avatar.jpg" style="width: 50px;display: block">
                 </div>
                 <div class="weui-cell__bd">
                     <p>{{user.phone}}</p>
@@ -54,10 +53,14 @@ export default {
       }
   },
   mounted() {
+      this.actionUserInfo().then((user) => {
+          store.set('user', user)
+      })
   },
   computed: {
   },
   methods: {
+      ...mapActions(['actionUserInfo']),
   }
 }
 </script>
