@@ -5,7 +5,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">受理点</label></div>
                 <div class="weui-cell__bd">
-                    蕉岭县
+                    五华县
                     <!-- <input class="weui-input" name="" type="text" emptyTips="请输入受理点" placeholder="请输入受理点"/> -->
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <input class="weui-input" type="text" v-model="IDCardNum" placeholder="请输入身份证号">
                 </div>
             </div>
-            
+
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label for="" class="weui-label">预约时段</label></div>
                 <div class="weui-cell__bd">
@@ -90,7 +90,7 @@
             <p class="icon-box__desc c-666">请您时刻注意微信公众号的提醒</p>
         </div>
     </Feedback>
-        
+
 </template>
 
 <script>

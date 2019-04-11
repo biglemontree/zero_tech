@@ -5,7 +5,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">受理点</label></div>
                 <div class="weui-cell__bd">
-                    蕉岭县
+                    五华县
                     <!-- <input class="weui-input" name="" type="text" emptyTips="请输入受理点" placeholder="请输入受理点"/> -->
                 </div>
             </div>
@@ -87,7 +87,7 @@
             <p class="icon-box__desc c-666">请您时刻注意微信公众号的提醒</p>
         </div>
     </Feedback>
-        
+
 </template>
 
 <script>
@@ -119,7 +119,7 @@ export default {
   },
   store: vstore,
   mounted() {
-    const {id} = this.$route.params 
+    const {id} = this.$route.params
     if (id) {
         request({
             url: api.getApplyDetail,
@@ -174,7 +174,7 @@ export default {
         },true).then(r => this.ywTypes = r.rows);
     },
     fetchDate() {
-        
+
         request({
             url: api.getDate,
         },true).then(r => {
@@ -198,7 +198,7 @@ export default {
                 "CARD_ID": cardId, // 身份证号,
                 YWLX: this.YWLX, // 预约业务类型,
                 "name": userName, // 预约人姓名,
-                "BLJG": '蕉岭县', // 办理机构,
+                "BLJG": '五华县', // 办理机构,
             }
         }).then(() => this.isSuccess = true)
     },

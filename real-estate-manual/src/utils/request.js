@@ -2,12 +2,12 @@ import axios from 'axios'
 import store from 'store'
 // import appStore from '@/store'
 
-// const baseURL = 'http://2121k4a180.iask.in:11898/jlbdc_gzh/'
-// const baseURL = 'http://118.89.65.103:8080/jlbdc_gzh/'
-// const imgURL = 'http://118.89.65.103:8080/rs/'
+// 五华
+const baseURL = 'http://119.146.147.100:8081/jlbdc_gzh/'
+const imgURL = 'http://119.146.147.100:8081/rs/'
 // 局里
-const baseURL = 'http://119.146.150.29:8081/jlbdc_gzh/'
-const imgURL = 'http://119.146.150.29:8081/rs/'
+// const baseURL = 'http://119.146.150.29:8081/jlbdc_gzh/'
+// const imgURL = 'http://119.146.150.29:8081/rs/'
 const service = axios.create({
     baseURL,
     method: 'post',
@@ -15,7 +15,7 @@ const service = axios.create({
 })
 service.interceptors.request.use(options => {
     console.log('request: ', options)
-    const config = options   
+    const config = options
     // const method = options.method.toUpperCase()
     const field = 'data' // method === 'GET' ? 'params' : 'data'
     // 添加token到查询参数中
