@@ -31,7 +31,7 @@
                     <label class="weui-label">坐落</label>
                 </div>
                 <div class="weui-cell__bd c-666">
-                    建筑物面积个发广告过过过过过过过过噶奥奥奥奥奥奥奥奥奥奥奥奥奥
+                    {{house.FDZL}}
                 </div>
             </div>
             <div class="weui-cell ">
@@ -39,7 +39,7 @@
                     <label class="weui-label">用途</label>
                 </div>
                 <div class="weui-cell__bd c-666">
-                     建筑物面积个发广
+                     {{house.GHYT}}
                 </div>
             </div>
             <div class="weui-cell ">
@@ -47,7 +47,7 @@
                     <label class="weui-label">面积</label>
                 </div>
                 <div class="weui-cell__bd c-666">
-                     建筑物面积个发广
+                     {{house.JZMJ}}
                 </div>
             </div>
             <div class="weui-cell ">
@@ -55,7 +55,7 @@
                     <label class="weui-label">状态</label>
                 </div>
                 <div class="weui-cell__bd c-666">
-                     建筑物面积个发广
+                     {{house.status}}
                 </div>
             </div>
         </div>
@@ -83,47 +83,23 @@ import request from "../../utils/request";
 import api from "../../constants/api";
 
 export default {
-  name: "user",
+  name: "houseInfo",
   data() {
     return {
-      QLRTXDZ: "",
-      QLRZJH: "",
-      QLRYB: "",
-      QLRZJLX: "",
-      QLRXM: "",
-
-        ZDMJ: '',
-        ZL: '',
-        ZDDM: '',
-      YT: '',
-      JZWMJ: '',
-      TDLX: '',
-      bdcTypes: [], //
-      tdTypes: [],
+        house: {}
     };
   },
   store: vstore,
   mounted() {
     // this.fetchUserInfo();
-    this.fetchTdType();
-    this.fetchBdcType()
+    this.house = this.houseInfoArr[0]
+
   },
   computed: {
-    ...mapState(["userInfo"])
-    //   this.$store.state
+    ...mapState(["userInfo",'houseInfoArr'])
   },
   methods: {
     ...mapMutations(["fetchUserInfo"]),
-    fetchTdType() { // 土地权利类型
-      request({
-        url: api.getTdqllxList,
-      }).then(r => (this.tdTypes = r.rows));
-    },
-    fetchBdcType() {
-      request({
-        url: api.geetBdcslqkList
-      }).then(r => (this.bdcTypes = r.rows));
-    },
     
   }
 };

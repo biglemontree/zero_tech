@@ -30,10 +30,11 @@
                     <div class="weui-cell__bd weui-cell_primary">
                         <h4 class="weui-media-box__title">登记类型：{{row.DJLX}}</h4>
                         <p class="weui-media-box__desc">申请时间：{{row.createTime}}</p>
+                        <p class="weui-media-box__desc right-align fs-12px" >{{row.fbk1.reason}}kkkk</p>
                     </div>
                     <div class="weui-cell__bd " >
+                        <i class="weui-icon-success"></i>
                         <div class="weui-media-box__title right-align fs-12px" >{{row.fbk1.result}}</div>
-                        <p class="weui-media-box__desc right-align fs-12px" >{{row.fbk1.reason}}</p>
                     </div>
                     <!-- <div class="weui-panel__ft">{{row.fbk1.result}}</div> -->
                     <!-- <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft">{{row.fbk1.result}}fd</span></a></div> -->
