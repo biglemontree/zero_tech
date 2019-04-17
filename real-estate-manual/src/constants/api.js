@@ -30,4 +30,5 @@ export default {
     getTypeZCFG: '/type/getTypeZCFG', //政策法规列表
     getTypeTZGG: '/type/getTypeTZGG', //通知公告列表
     getTypeByTitle: '/type/getTypeByTitle', //详情
+    queryHouseDetail: '/query/queryFwsyqGZH', //房产详情
 }    

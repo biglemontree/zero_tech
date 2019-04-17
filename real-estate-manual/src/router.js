@@ -6,7 +6,7 @@ import Register from './views/register/Index.vue'
 import Verify from './views/common/Verify.vue'
 import PreAudit from './views/preAudit/Index.vue'
 import User from './views/preAudit/User.vue'
-import Info from './views/preAudit/Info.vue'
+import HouseInfo from './views/houseSearch/Info.vue'
 import Upload from './views/preAudit/Upload.vue'
 
 
@@ -69,10 +69,10 @@ export default new Router({
       meta: { title: '证明文件'}
     },
     {
-      path: '/info',
-      name: 'info',
-      component: Info,
-      meta: { title: '不动产情况'}
+      path: '/house-info',
+        name: 'house-info',
+        component: HouseInfo,
+      meta: { title: '房产信息'}
     },
     {
       path: '/list',
@@ -127,6 +127,12 @@ export default new Router({
           name: 'qa',
           meta: { title: '业务知识' },
           component: () => import(/* webpackChunkName: "qa" */ './views/notice/qa.vue')
+      },
+      {
+          path: '/house-search',
+          name: 'house-search',
+          meta: { title: '房产查询' },
+          component: () => import(/* webpackChunkName: "house-search" */ './views/houseSearch/Index.vue')
       },
   ]
 })

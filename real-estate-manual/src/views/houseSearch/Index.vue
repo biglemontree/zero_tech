@@ -7,7 +7,7 @@
                     <label class="weui-label">姓名</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" v-model="name" required emptyTips="请输入姓名" notMatchTips="请输入姓名" placeholder="请输入完整姓名">
+                    <input class="weui-input" disabled type="text" v-model="name" required emptyTips="请输入姓名" notMatchTips="请输入姓名" placeholder="请输入完整姓名">
                 </div>
             </div>
             <div class="weui-cell ">
@@ -15,7 +15,7 @@
                     <label class="weui-label">身份证号</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" v-model="IDCardNum" required pattern="REG_IDNUM" placeholder="输入你的身份证号码" emptyTips="请输入身份证号码" notMatchTips="请输入正确的身份证号码">
+                    <input class="weui-input" disabled type="text" v-model="cardId" required pattern="REG_IDNUM" placeholder="输入你的身份证号码" emptyTips="请输入身份证号码" notMatchTips="请输入正确的身份证号码">
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <label class="weui-label">手机号码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="tel" @input="checkTel()" required pattern="REG_TEL" v-model="phone" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号" placeholder="请输入手机号">
+                    <input class="weui-input" type="tel" disabled @input="checkTel()" required pattern="REG_TEL" v-model="phone" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号" placeholder="请输入手机号">
                 </div>
             </div>
         </div>
@@ -45,57 +45,48 @@
             </div>
         </div>
         <div class="weui-btn-area">
-            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="checkUser">下一步</a>
+            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="checkUser">确认查询</a>
         </div>
     </div>
         
 </template>
 
 <script>
-import axios from "axios";
 import NodeRSA from "node-rsa";
 import store from "store";
-import qs from "qs";
-import localstore from "store";
 import vstore from "@/store.js";
+import { mapState, mapMutations, mapActions } from 'vuex'
+
 import request from "../../utils/request";
 import api from "../../constants/api";
 import consts from "../../constants/";
-import Feedback from "../common/Feedback";
 
 let timer;
 let s = 60;
-const hasLocalUser = localstore.get("user") || {};
 export default {
-  name: "home",
+  name: "houseSearch",
   data() {
     return {
       phone: '',
       name: '',
-      IDCardNum: '',
+      cardId: '',
       code: "",
       isSuccess: true,
       second: 0,
-      disabled: true // 验证码btn
+      disabled: false // 验证码btn
     };
   },
   store: vstore,
   mounted() {
-    weui.form.checkIfBlur("#form", {
-      regexp: {
-        IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
-        TEL: /^1(3|4|5|7|8|9)\d{9}$/
-      }
-    });
-    const { phone, userName: name, cardId: IDCardNum } = hasLocalUser;
-    this.name = name
-    this.IDCardNum = IDCardNum
-    this.phone = phone
-    if (phone) {
-      this.disabled = false;
-    }
+      this.actionUserInfo().then(r => {
+        const {userName, cardId, phone} = r
+        this.name = userName
+        this.cardId = cardId
+        this.phone = phone
+    })
   },
   methods: {
+      ...mapActions(['actionUserInfo']),
     checkTel() {
       if (this.phone.match(/^1(3|4|5|7|8|9)\d{9}$/g)) {
         this.disabled = false;
@@ -127,45 +118,19 @@ export default {
       return x;
     },
     checkUser() {
-        let params = this.$route.query.type;
-      weui.form.validate(
-        "#form",
-        error => {
-          if (!error) {
-            const { phone, IDCardNum, code, name } = this;
-            request({
-              url: params ? api.updateInfo : api.CheckUser,
-              data: {
+        const {name, phone, cardId,code} = this
+        request({
+            url: api.queryHouseDetail,
+            data: {
                 phone,
-                IDCardNum,
+                cardId,
                 code,
                 name,
-                // 更新
-                cardId: IDCardNum,
-                username: name
-              }
-            }).then(r => {
-              if (!params) {
-                store.set("token", r.data);
-                this.$router.push({
-                  path: store.get("from")
-                });
-              } else {
-                // { phone, userName: name, id: IDCardNum } = hasLocalUser
-                store.set('user', r.data)
-                weui.toast('修改成功',1000)
-                this.$router.back(-1);
-              }
-            });
-          }
-        },
-        {
-          regexp: {
-            IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
-            TEL: /^1[345789]\d{9}$/
-          }
-        }
-      );
+            }
+        }).then(r => {
+            weui.toast('查找成功',1000)
+            this.$router.push('/house-info');
+        });
     }
   }
 };
