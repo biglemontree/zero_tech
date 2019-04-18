@@ -23,17 +23,23 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__bd">
                 <div class="noMore" v-if="rows.length==0">暂无预审记录</div>
-                <div v-else v-for="(row, index) in rows" :key="index" class="weui-media-box weui-media-box_appmsg">
-                    <!-- <div class="weui-media-box__hd">
-                        <img class="weui-media-box__thumb" src="../../assets/search_list.png" alt="">
-                    </div> -->
-                    <div class="weui-cell__bd weui-cell_primary">
-                        <h4 class="weui-media-box__title">登记类型：{{row.DJLX}}</h4>
-                        <p class="weui-media-box__desc">申请时间：{{row.createTime}}</p>
+                <div v-else v-for="(row, index) in rows" :key="index">
+                    <div class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-cell__bd weui-cell_primary">
+                            <h4 class="weui-media-box__title">登记类型：{{row.DJLX}}</h4>
+                            <p class="weui-media-box__desc">申请时间：{{row.createTime}}</p>
+                        </div>
+                        <div class="weui-cell__bd " >
+                            <div class="right-align">
+                                <i class="weui-icon-waiting" v-if="row.fbk1.result=='待处理'"></i>
+                                <i class="weui-icon-success" v-else-if="row.fbk1.result=='通过'"></i>
+                                <i class="weui-icon-warn" v-else></i>
+                            </div>
+                            <div class="weui-media-box__title right-align fs-12px" >{{row.fbk1.result}}</div>
+                        </div>
                     </div>
-                    <div class="weui-cell__bd " >
-                        <div class="weui-media-box__title right-align fs-12px" >{{row.fbk1.result}}</div>
-                        <p class="weui-media-box__desc right-align fs-12px" >{{row.fbk1.reason}}</p>
+                    <div class="px-20 c-666 " >
+                        {{row.fbk1.reason}}
                     </div>
                     <!-- <div class="weui-panel__ft">{{row.fbk1.result}}</div> -->
                     <!-- <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft">{{row.fbk1.result}}fd</span></a></div> -->

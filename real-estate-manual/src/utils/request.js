@@ -37,7 +37,6 @@ service.interceptors.response.use(
         if (+code === 1) {
             return data
         } else if(code === 422) {
-            const hash = window.location.hash
             store.remove('user')
             const url = "/dist/#/agree"
             window.location = url
