@@ -65,7 +65,6 @@ import Feedback from "../common/Feedback";
 
 let timer;
 let s = 60;
-const hasLocalUser = localstore.get("user") || {};
 export default {
   name: "home",
   data() {
@@ -87,7 +86,9 @@ export default {
         TEL: /^1(3|4|5|7|8|9)\d{9}$/
       }
     });
-    const { phone, userName: name, cardId: IDCardNum } = hasLocalUser;
+    const localUser = localstore.get("user") || {};
+
+    const { phone, userName: name, cardId: IDCardNum } = localUser;
     this.name = name
     this.IDCardNum = IDCardNum
     this.phone = phone
@@ -151,7 +152,6 @@ export default {
                   path: store.get("from")
                 });
               } else {
-                // { phone, userName: name, id: IDCardNum } = hasLocalUser
                 store.set('user', r.data)
                 weui.toast('修改成功',1000)
                 this.$router.back(-1);

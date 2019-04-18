@@ -120,7 +120,7 @@ export default {
     checkUser() {
         const {name, phone, cardId,code} = this
         request({
-            url: api.queryHouseDetail,
+            url: api.querySignList,
             data: {
                 phone,
                 cardId,

@@ -31,4 +31,5 @@ export default {
     getTypeTZGG: '/type/getTypeTZGG', //通知公告列表
     getTypeByTitle: '/type/getTypeByTitle', //详情
     queryHouseDetail: '/query/queryFwsyqGZH', //房产详情
+    querySignList: '/query/queryBDCQZH', //登记证号列表
 }    

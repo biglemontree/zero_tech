@@ -7,8 +7,10 @@
                     <label class="weui-label">宅基地</label>
                 </div> -->
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="YT" v-model="YT">
-                        <option selected="住宅" value="住宅">住宅</option>
+                    <select class="weui-select" name="YT" v-model="YT" >
+                        <!-- <option :selected="ywInfoList[0].name" v-for="(item, index) in ywInfoList" :key="index" :value="item">{{item.name}}</option> -->
+
+                        <option selected="住宅" value="住宅" @click="fetchYwInfoList">住宅</option>
                         <option value="商铺">商铺</option>
                     </select>
                 </div>
