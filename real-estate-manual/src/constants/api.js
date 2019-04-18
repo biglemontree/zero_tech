@@ -30,6 +30,7 @@ export default {
     getTypeZCFG: '/type/getTypeZCFG', //政策法规列表
     getTypeTZGG: '/type/getTypeTZGG', //通知公告列表
     getTypeByTitle: '/type/getTypeByTitle', //详情
-    queryHouseDetail: '/query/queryFwsyqGZH', //房产详情
+    queryHouseDetail: '/query/queryFwsyqByBDCQZH', //房产详情
+    queryFirHouseDetail: '/query/queryFwsyqGZH', //首次进入的房产详情
     querySignList: '/query/queryBDCQZH', //登记证号列表
 }    

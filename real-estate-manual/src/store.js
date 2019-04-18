@@ -14,17 +14,8 @@ export default new Vuex.Store({
         needUploads: [],
         fileList: [], // 上传的图片列表
         fileIds: '',
-        houseInfoArr: [{
-            FDZL: '大冲',
-            BDCQZH: 'dfgdsg',
-            SerialNumber: '20190315',
-            PrintDate: '20190315',
-            FWSUOYQLR: '20190315',
-            QLRZJBH: '20190315',
-            GHYT: '20190315',
-            JZMJ: '20190315',
-            status: '正常',
-        }]
+        houseInfoArr: [],
+        firstHouseDetail: {}
     },
     mutations: {
         setOnlineData(state, data) {
@@ -39,6 +30,9 @@ export default new Vuex.Store({
         },
         addIds(state, ids) {
             state.fileIds += ids
+        },
+        setHouseList(state, arr) {
+            state.houseInfoArr = arr
         }
     },
     actions: {

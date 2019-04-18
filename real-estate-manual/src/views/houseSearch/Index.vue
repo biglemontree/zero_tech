@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="weui-btn-area">
-            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="checkUser">确认查询</a>
+            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="subHouseSearch">确认查询</a>
         </div>
     </div>
         
@@ -117,9 +117,18 @@ export default {
       const x = key.encrypt(content, "base64");
       return x;
     },
+    subHouseSearch(){
+        const p1 = this.checkUser()
+        const p2 = this.getFirstHouse()
+        Promise.all([p1, p2]).then(() => {
+            weui.toast('查找成功',1000)
+            this.$router.push('/house-info');
+
+        })
+    },
     checkUser() {
         const {name, phone, cardId,code} = this
-        request({
+        return request({
             url: api.querySignList,
             data: {
                 phone,
@@ -128,8 +137,22 @@ export default {
                 name,
             }
         }).then(r => {
-            weui.toast('查找成功',1000)
-            this.$router.push('/house-info');
+            this.$store.state.houseInfoArr = r.rows
+        });
+
+    },
+    getFirstHouse(){
+        const {name, phone, cardId,code} = this
+        return request({
+            url: api.queryFirHouseDetail,
+            data: {
+                phone,
+                cardId,
+                code,
+                name,
+            }
+        }).then(r => {
+            this.$store.state.firstHouseDetail = r.data
         });
     }
   }
