@@ -10,29 +10,23 @@
                     <p style="font-size: 13px;color: #888888;"></p>
                 </div>
             </div>
-            <router-link to="/myAudit">
-                <div class="weui-cell weui-cell_access">
-                    <div class="weui-cell__bd">
-                        <span style="vertical-align: middle">我的预审</span>
-                    </div>
-                    <div class="weui-cell__ft"></div>
+            <router-link to="/myAudit" class="weui-cell weui-cell_access">
+                <div class="weui-cell__bd">
+                    <span style="vertical-align: middle">我的预审</span>
                 </div>
+                <div class="weui-cell__ft"></div>
             </router-link> 
-            <router-link to="/list">
-                <div class="weui-cell weui-cell_access">
-                    <div class="weui-cell__bd">
-                        <span style="vertical-align: middle">我的预约</span>
-                    </div>
-                    <div class="weui-cell__ft"></div>
+            <router-link to="/list" class="weui-cell weui-cell_access">
+                <div class="weui-cell__bd">
+                    <span style="vertical-align: middle">我的预约</span>
                 </div>
+                <div class="weui-cell__ft"></div>
             </router-link>                
-            <router-link to="/verify?type=1">
-                <div class="weui-cell weui-cell_access">
-                    <div class="weui-cell__bd">
-                        <span style="vertical-align: middle">个人信息修改</span>
-                    </div>
-                    <div class="weui-cell__ft"></div>
+            <router-link to="/verify?type=1" class="weui-cell weui-cell_access">
+                <div class="weui-cell__bd">
+                    <span style="vertical-align: middle">个人信息修改</span>
                 </div>
+                <div class="weui-cell__ft"></div>
             </router-link>                
             
         </div>

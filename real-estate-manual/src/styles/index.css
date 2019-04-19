@@ -44,3 +44,6 @@ ul li {list-style:none}
 p img {
     max-width: 100%;
 }
+.border-eee {
+    border-bottom: 1px solid #e5e5e5;
+}

@@ -23,7 +23,7 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__bd">
                 <div class="noMore" v-if="rows.length==0">暂无预审记录</div>
-                <div v-else v-for="(row, index) in rows" :key="index">
+                <div v-else v-for="(row, index) in rows" class='border-eee' :key="index">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-cell__bd weui-cell_primary">
                             <h4 class="weui-media-box__title">登记类型：{{row.DJLX}}</h4>
@@ -41,8 +41,6 @@
                     <div class="px-20 c-666 " >
                         {{row.fbk1.reason}}
                     </div>
-                    <!-- <div class="weui-panel__ft">{{row.fbk1.result}}</div> -->
-                    <!-- <div class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft">{{row.fbk1.result}}fd</span></a></div> -->
                 </div>
             </div>
         </div>
@@ -67,9 +65,9 @@ export default {
   },
   store: vstore,
   mounted() {
-      request({
-            url: api.getSqbList,
-        }).then(r => this.rows = r.rows)
+    //   request({
+    //         url: api.getSqbList,
+    //     }).then(r => this.rows = r.rows)
   },
   methods: {
   },
