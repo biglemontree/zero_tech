@@ -2,7 +2,7 @@
     <div>
         <div v-if="!isSearched">
             <div >
-                <img class="top" src="../../assets/logo1.png" alt="" srcset="">
+                <img class="top" src="../../assets/logo.png" alt="" srcset="">
             </div>
             <div class="weui-cells__title">请输入您的受理编号</div>
             <div class="weui-cells weui-cells_form">

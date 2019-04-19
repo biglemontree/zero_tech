@@ -3,11 +3,11 @@ import store from 'store'
 // import appStore from '@/store'
 
 // 五华
-const baseURL = 'http://119.146.147.100:8081/jlbdc_gzh/'
-const imgURL = 'http://119.146.147.100:8081/rs/'
+// const baseURL = 'http://119.146.147.100:8081/jlbdc_gzh/'
+// const imgURL = 'http://119.146.147.100:8081/rs/'
 // 局里
-// const baseURL = 'http://119.146.150.29:8081/jlbdc_gzh/'
-// const imgURL = 'http://119.146.150.29:8081/rs/'
+const baseURL = 'http://119.146.150.29:8081/jlbdc_gzh/'
+const imgURL = 'http://119.146.150.29:8081/rs/'
 const service = axios.create({
     baseURL,
     method: 'post',
