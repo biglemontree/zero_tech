@@ -65,9 +65,9 @@ export default {
   },
   store: vstore,
   mounted() {
-    //   request({
-    //         url: api.getSqbList,
-    //     }).then(r => this.rows = r.rows)
+      request({
+            url: api.getSqbList,
+        }).then(r => this.rows = r.rows)
   },
   methods: {
   },
