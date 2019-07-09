@@ -1,20 +1,13 @@
 <template lang="html">
     <div >
-        <!-- <div class="weui-cells__title">所有权选择</div>
-        <div class="weui-cells">
-            <div class="weui-cell__bd">
-                <select class="weui-select" name="YYRQ" v-model="YYRQ">
-                    <option :selected="signTypes[0].createTime" @click="fetchDate" v-for="(item, index) in signTypes" :key="index" :value="item.name">{{item.name}}</option>
-                </select>
-            </div>
-        </div> -->
         <div class="weui-cells__title">登记类型选择</div>
         <div class="weui-cells">
             <!-- <div class="weui-cell__hd"><label for="" class="weui-label">变更登记</label></div> -->
             <div class="weui-cell weui-cell_select">
                 <div class="weui-cell__bd">
                     <select class="weui-select" name="DJLX" v-model="DJLX">
-                        <option :selected="signTypes[0].name" @click="fetchYwInfoList" v-for="(item, index) in signTypes" :key="index" :value="item">{{item.name}}</option>
+                        <option style="display:none" value="" disabled>请选择</option>
+                        <option :selected="signTypes[0]" @click="fetchYwInfoList" v-for="(item, index) in signTypes" :key="index" :value="item">{{item.name}}</option>
                     </select>
                 </div>
             </div>
@@ -25,7 +18,8 @@
                 <!-- <div class="weui-cell__hd"><label for="" class="weui-label">变更登记</label></div> -->
                 <div class="weui-cell__bd">
                     <select class="weui-select" name="todo" v-model="todo">
-                        <option :selected="ywInfoList[0].name" v-for="(item, index) in ywInfoList" :key="index" :value="item">{{item.name}}</option>
+                        <option style="display:none" value="" disabled>请选择</option>
+                        <option :selected="ywInfoList[0]" v-for="(item, index) in ywInfoList" :key="index" :value="item">{{item.name}}</option>
                     </select>
                 </div>
             </div>
@@ -62,10 +56,12 @@
             </label>
         </div>
         <div class="weui-btn-area">
-            <a href="javascript:;" class="weui-btn weui-btn_primary" @click="nextStep">下一步</a>
+            <a href="javascript:;" :class="['weui-btn',(DJLX && todo && SQLX)? 'weui-btn_primary' : 'weui-btn_plain-disabled']" @click="nextStep">下一步</a>
+            <!-- :class="['weui-btn',  {'weui-btn_plain-disabled': disabled, 'weui-btn_plain-primary':!disabled}]" -->
+
         </div>
     </div>
-        
+
 </template>
 
 <script>
@@ -113,7 +109,7 @@ export default {
             data: {
                 type: this.DJLX.id
             }
-        }).then(r => { 
+        }).then(r => {
             this.ywInfoList = r.rows
         })
     },
@@ -126,6 +122,7 @@ export default {
     },
     nextStep() {
         const {DJLX, SQLX, todo} = this
+        if(!(DJLX && todo && SQLX)) {return}
         this.setOnlineData({
             DJLX, SQLX, todo
         })

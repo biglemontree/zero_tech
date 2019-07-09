@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from 'store'
 // import appStore from '@/store'
 
-// 五华
+// // 五华
 const baseURL = 'http://119.146.147.100:8081/jlbdc_gzh/'
 const imgURL = 'http://119.146.147.100:8081/rs/'
 // 局里
@@ -13,6 +13,7 @@ const service = axios.create({
     method: 'post',
     timeout: 20000
 })
+
 service.interceptors.request.use(options => {
     console.log('request: ', options)
     const config = options
@@ -55,6 +56,7 @@ service.interceptors.response.use(
  */
 function request(params, ignoreError) {
     const loading = weui.loading('加载中')
+
     return service(params).then(res => {
         loading.hide()
         return res
@@ -68,7 +70,8 @@ function request(params, ignoreError) {
             // 为兼容后端返回的数据，这里把res封装到message中
             const error = { message: res }
             if (ignoreError !== true && code !== 422) {
-                weui.alert(msg)
+                // weui.alert(msg)
+                weui.confirm(msg)
                 // appStore.setError(error)
             }
             return Promise.reject(error)
@@ -84,7 +87,7 @@ function request(params, ignoreError) {
         // 接口如果需要在外边需要异常，需要设置ignoreError = true
         if (ignoreError !== true && code !== 422) {
             // appStore.setError(res)
-            weui.alert(msg)
+            weui.confirm(msg)
         }
 
         return Promise.reject(res)

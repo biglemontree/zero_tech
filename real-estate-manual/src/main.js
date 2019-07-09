@@ -5,6 +5,9 @@ import router from './router'
 import store from './store'
 import './styles/base.css'
 import weui from 'weui';
+import FastClick from 'fastclick';
+
+FastClick.attach(document.body)
 Vue.use(weui)
 Vue.prototype.weui = weui
 Vue.config.productionTip = false
@@ -17,7 +20,7 @@ router.beforeEach((to, from, next) => {
   if (to.name==='agree') {
     //   store.state.from = from
       console.log('from ', from)
-    
+
       storage.set('from', from.path)
   }
   next()

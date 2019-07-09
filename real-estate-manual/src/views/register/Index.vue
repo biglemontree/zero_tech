@@ -17,7 +17,8 @@
                 <div class="weui-cell__bd">
                     <div v-if="isDeail">{{detail.YWName}}</div>
                     <select v-else class="weui-select" name="YWLX" v-model="YWLX" required tips="请" notMatchTips="请输入正确的手机号">
-                        <option :selected="ywTypes[0].name" @click="fetchDate" v-for="(item, index) in ywTypes" :key="index" :value="item.name">{{item.name}}</option>
+                        <option style="display:none;" value="" disabled>请选择</option>
+                        <option  @click="fetchDate" v-for="(item, index) in ywTypes" :key="index" :value="item.name">{{item.name}}</option>
                     </select>
                 </div>
                 <div v-if="!isDeail" class="weui-panel__ft"><a class=" weui-cell_access weui-cell_link"><span class="weui-cell__ft"></span></a></div>
@@ -31,6 +32,8 @@
                 <div class="weui-cell__bd">
                     <div v-if="isDeail">{{detail.YYRQ}}</div>
                     <select v-else class="weui-select" name="YYRQ" v-model="YYRQ" @click="fetchSelDate">
+                        <option style="display:none;" value="" disabled>请选择</option>
+
                         <option :selected="availDate[0].createTime" @click="fetchDate" v-for="(item, index) in availDate" :key="index" :value="item.createTime">{{item.createTime}}</option>
                     </select>
                 </div>
@@ -41,6 +44,8 @@
                 <div class="weui-cell__bd">
                     <div v-if="isDeail">{{detail.YYSJD}}</div>
                     <select v-else class="weui-select" name="YYSJD" v-model="YYSJD">
+                        <option style="display:none;" value="" disabled>请选择</option>
+
                         <option :selected="availTime[0].SJD" v-for="(item, index) in availTime" :key="index" :value="item.SJD">{{item.SJD}}(可预约:{{item.count}}人)</option>
                     </select>
                 </div>
@@ -76,7 +81,7 @@
         </div>
         <div class="weui-btn-area">
             <a href="javascript:;" class="cancel weui-btn weui-btn_default" v-if="isDeail && detail.status===0" @click="cancel">取消预约</a>
-            <a href="javascript:;" class="weui-btn weui-btn_primary" v-if="!isDeail" @click="save">下一步</a>
+            <a href="javascript:;" :class="['weui-btn', YYSJD?'weui-btn_primary': 'weui-btn_plain-disabled']" v-if="!isDeail" @click="save">下一步</a>
         </div>
     </div>
     <Feedback v-else @go="go">
@@ -190,6 +195,7 @@ export default {
             weui.toast('请选择预约类型', {duration: 1000})
             return
         }
+        if (!this.YYSJD) {return}
         request({
             url: api.onlineApply,
             data: {
