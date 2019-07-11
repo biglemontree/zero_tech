@@ -4,10 +4,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './styles/base.css'
+import 'mint-ui/lib/style.css'
 import weui from 'weui';
-import FastClick from 'fastclick';
+// import FastClick from 'fastclick';
+import { MessageBox } from 'mint-ui';
 
-FastClick.attach(document.body)
+// FastClick.attach(document.body)
+
+Vue.component(MessageBox.name, MessageBox)
 Vue.use(weui)
 Vue.prototype.weui = weui
 Vue.config.productionTip = false
