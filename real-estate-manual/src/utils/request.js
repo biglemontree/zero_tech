@@ -1,7 +1,10 @@
 import axios from 'axios'
 import store from 'store'
-import { MessageBox } from 'mint-ui'
+import { Toast } from 'mint-ui'
 // import appStore from '@/store'
+import FastClick from 'fastclick';
+
+FastClick.attach(document.body,{})
 
 // // 五华
 const baseURL = 'http://119.146.147.100:8081/jlbdc_gzh/'
@@ -71,16 +74,7 @@ function request(params, ignoreError) {
             // 为兼容后端返回的数据，这里把res封装到message中
             const error = { message: res }
             if (ignoreError !== true && code !== 422) {
-                // var $dialog = weui.dialog({
-                //     title: 'dialog标题',
-                //     content: msg,
-                //     buttons: [{
-                //         label: '确定',
-                //         type: 'primary',
-                //         onClick: function () { $dialog.hide() }
-                //     }]
-                // });
-                MessageBox.alert(msg, '提示')
+                Toast({message: msg,duration: 2000})
                 // appStore.setError(error)
             }
             return Promise.reject(error)
@@ -97,7 +91,10 @@ function request(params, ignoreError) {
         if (ignoreError !== true && code !== 422) {
             // appStore.setError(res)
             // weui.confirm(msg)
-            MessageBox.alert(msg, '提示')
+            // MessageBox.alert(msg, '提示')
+
+            Toast({message: msg,duration: 2000})
+
         }
 
         return Promise.reject(res)
