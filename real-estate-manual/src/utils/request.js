@@ -3,10 +3,11 @@ import store from 'store'
 import { Toast } from 'mint-ui'
 // import appStore from '@/store'
 
-
+// 五华：http://whgt.01solomo.com:8081
+// 蕉岭：http://jlgt.01solomo.com:8081
 // // 五华
-const baseURL = 'http://119.146.147.100:8081/jlbdc_gzh/'
-const imgURL = 'http://119.146.147.100:8081/rs/'
+const baseURL = 'http://whgt.01solomo.com:8081/jlbdc_gzh/'
+const imgURL = 'http://whgt.01solomo.com:8081/rs/'
 // 蕉岭局里
 // const baseURL = 'http://119.146.150.29:8081/jlbdc_gzh/'
 // const imgURL = 'http://119.146.150.29:8081/rs/'
