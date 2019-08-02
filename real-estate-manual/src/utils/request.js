@@ -2,14 +2,12 @@ import axios from 'axios'
 import store from 'store'
 import { Toast } from 'mint-ui'
 // import appStore from '@/store'
-import FastClick from 'fastclick';
 
-FastClick.attach(document.body,{})
 
 // // 五华
 const baseURL = 'http://119.146.147.100:8081/jlbdc_gzh/'
 const imgURL = 'http://119.146.147.100:8081/rs/'
-// 局里
+// 蕉岭局里
 // const baseURL = 'http://119.146.150.29:8081/jlbdc_gzh/'
 // const imgURL = 'http://119.146.150.29:8081/rs/'
 const service = axios.create({
