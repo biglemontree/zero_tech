@@ -23,20 +23,17 @@
         $("input").blur(function(){
           if (isIOS) {
             blurAdjust()
-            // alert("1231321233")
           }
         });
         $("select").select(function(){
           if (isIOS) {
             blurAdjust()
-            // alert("1231321233")
           }
         })
       });
       // 解决苹果不回弹页面
       function blurAdjust(e){
         setTimeout(()=>{
-          // alert("1231321233")
           if(document.activeElement.tagName == 'INPUT' || document.activeElement.tagName == 'TEXTAREA'){
             return
           }

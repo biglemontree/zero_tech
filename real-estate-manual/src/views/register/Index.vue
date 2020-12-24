@@ -81,7 +81,7 @@
         </div>
         <div class="weui-btn-area">
             <a href="javascript:;" class="cancel weui-btn weui-btn_default" v-if="isDeail && detail.status===0" @click="cancel">取消预约</a>
-            <a href="javascript:;" :class="['weui-btn', YYSJD?'weui-btn_primary': 'weui-btn_plain-disabled']" v-if="!isDeail" @click="save">下一步</a>
+            <a href="javascript:;" :class="['weui-btn', YYSJD ? 'weui-btn_primary': 'weui-btn_plain-disabled']" v-if="!isDeail" @click="save">下一步</a>
         </div>
     </div>
     <Feedback v-else @go="go">

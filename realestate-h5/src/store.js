@@ -1,17 +1,15 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 import request from "./utils/request";
 import api from "./constants/api";
-import s from 'store';
-Vue.use(Vuex)
 
-export default new Vuex.Store({
+export default new createStore({
     state: {
         userInfo: {
-            userName: ''
-        },
-        onlineData: {
-            // DJLX: {name: "首次登记", id: 1, status: 1}, SQLX: , todo: {name: "国有建设用地首次登记（地上）", id: 6, type: 1, status: 1}
+            phone: '',
+            name: '',
+            idCard: '',
+            code: "",
         },
         needUploads: [],
         fileList: [], // 上传的图片列表
@@ -20,12 +18,8 @@ export default new Vuex.Store({
         firstHouseDetail: {}
     },
     mutations: {
-        setOnlineData(state, data) {
-            state.onlineData = data
-        },
         fetchUserInfo(state, data) {
             state.userInfo = data
-            s.set('user', data)
         },
         fetchNeedFiles(state, rows) {
             state.needUploads = rows
